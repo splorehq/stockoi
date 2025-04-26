@@ -8,7 +8,8 @@ export const getMemories = async (token: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -36,7 +37,8 @@ export const addNewMemory = async (token: string, content: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({
 			content: content
@@ -67,7 +69,8 @@ export const updateMemoryById = async (token: string, id: string, content: strin
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({
 			content: content
@@ -98,7 +101,8 @@ export const queryMemory = async (token: string, content: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({
 			content: content
@@ -129,7 +133,8 @@ export const deleteMemoryById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -161,7 +166,8 @@ export const deleteMemoriesByUserId = async (token: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {

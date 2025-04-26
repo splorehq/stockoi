@@ -12,7 +12,7 @@
 	import Plus from '$lib/components/icons/Plus.svelte';
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
 	import SensitiveInput from '$lib/components/common/SensitiveInput.svelte';
-
+	import { userSignInWithToken } from '$lib/apis/auths';
 	const i18n = getContext('i18n');
 
 	export let saveHandler: Function;

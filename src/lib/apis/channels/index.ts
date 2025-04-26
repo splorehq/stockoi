@@ -16,7 +16,8 @@ export const createNewChannel = async (token: string = '', channel: ChannelForm)
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({ ...channel })
 	})
@@ -48,7 +49,8 @@ export const getChannels = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -79,7 +81,8 @@ export const getChannelById = async (token: string = '', channel_id: string) => 
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -114,7 +117,8 @@ export const updateChannelById = async (
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({ ...channel })
 	})
@@ -146,7 +150,8 @@ export const deleteChannelById = async (token: string = '', channel_id: string) 
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -184,7 +189,8 @@ export const getChannelMessages = async (
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				authorization: `Bearer ${token}`
+				authorization: `Bearer ${token}`,
+				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 			}
 		}
 	)
@@ -224,7 +230,8 @@ export const getChannelThreadMessages = async (
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				authorization: `Bearer ${token}`
+				authorization: `Bearer ${token}`,
+				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 			}
 		}
 	)
@@ -263,7 +270,8 @@ export const sendMessage = async (token: string = '', channel_id: string, messag
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({ ...message })
 	})
@@ -302,7 +310,8 @@ export const updateMessage = async (
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				authorization: `Bearer ${token}`
+				authorization: `Bearer ${token}`,
+				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 			},
 			body: JSON.stringify({ ...message })
 		}
@@ -342,7 +351,8 @@ export const addReaction = async (
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				authorization: `Bearer ${token}`
+				authorization: `Bearer ${token}`,
+				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 			},
 			body: JSON.stringify({ name })
 		}
@@ -382,7 +392,8 @@ export const removeReaction = async (
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				authorization: `Bearer ${token}`
+				authorization: `Bearer ${token}`,
+				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 			},
 			body: JSON.stringify({ name })
 		}
@@ -417,7 +428,8 @@ export const deleteMessage = async (token: string = '', channel_id: string, mess
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				authorization: `Bearer ${token}`
+				authorization: `Bearer ${token}`,
+				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 			}
 		}
 	)

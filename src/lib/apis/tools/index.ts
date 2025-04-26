@@ -8,7 +8,8 @@ export const createNewTool = async (token: string, tool: object) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({
 			...tool
@@ -39,7 +40,8 @@ export const getTools = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -70,7 +72,8 @@ export const getToolList = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -101,7 +104,8 @@ export const exportTools = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -132,7 +136,8 @@ export const getToolById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -164,7 +169,8 @@ export const updateToolById = async (token: string, id: string, tool: object) =>
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({
 			...tool
@@ -199,7 +205,8 @@ export const deleteToolById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -231,7 +238,8 @@ export const getToolValvesById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -263,7 +271,8 @@ export const getToolValvesSpecById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -295,7 +304,8 @@ export const updateToolValvesById = async (token: string, id: string, valves: ob
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({
 			...valves
@@ -330,7 +340,8 @@ export const getUserValvesById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -362,7 +373,8 @@ export const getUserValvesSpecById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -394,7 +406,8 @@ export const updateUserValvesById = async (token: string, id: string, valves: ob
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({
 			...valves

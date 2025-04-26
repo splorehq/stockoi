@@ -149,7 +149,8 @@ export const getUserSettings = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {

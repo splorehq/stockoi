@@ -6,7 +6,7 @@
 	import { page } from '$app/stores';
 
 	import { getBackendConfig } from '$lib/apis';
-	import { ldapUserSignIn, getSessionUser, userSignIn, userSignUp } from '$lib/apis/auths';
+	import { ldapUserSignIn, getSessionUser, userSignIn, userSignUp, userSignInWithToken } from '$lib/apis/auths';
 
 	import { WEBUI_API_BASE_URL, WEBUI_BASE_URL } from '$lib/constants';
 	import { WEBUI_NAME, config, user, socket } from '$lib/stores';
@@ -77,6 +77,16 @@
 			return null;
 		});
 		await setSessionUser(sessionUser);
+	};
+
+	const signInWithTokenHandler = async () => {
+		const token = await userSignInWithToken();
+		if (token) {
+			localStorage.setItem('token', token);
+			window.location.href = querystringValue('redirect') || '/';
+		} else {
+			toast.error($i18n.t('No token found'));
+		}
 	};
 
 	const submitHandler = async () => {
@@ -318,6 +328,14 @@
 												: ($config?.onboarding ?? false)
 													? $i18n.t('Create Admin Account')
 													: $i18n.t('Create Account')}
+										</button>
+
+										<button
+											class="bg-gray-700/5 hover:bg-gray-700/10 dark:bg-gray-100/5 dark:hover:bg-gray-100/10 dark:text-gray-300 dark:hover:text-white transition w-full rounded-full font-medium text-sm py-2.5 mt-2"
+											type="button"
+											on:click={signInWithTokenHandler}
+										>
+											{$i18n.t('Sign in with Token')}
 										</button>
 
 										{#if $config?.features.enable_signup && !($config?.onboarding ?? false)}

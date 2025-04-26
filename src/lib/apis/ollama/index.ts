@@ -12,7 +12,8 @@ export const verifyOllamaConnection = async (
 		headers: {
 			Accept: 'application/json',
 			Authorization: `Bearer ${token}`,
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({
 			url,
@@ -43,6 +44,7 @@ export const getOllamaConfig = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
 			...(token && { authorization: `Bearer ${token}` })
 		}
 	})
@@ -81,6 +83,7 @@ export const updateOllamaConfig = async (token: string = '', config: OllamaConfi
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
 			...(token && { authorization: `Bearer ${token}` })
 		},
 		body: JSON.stringify({
@@ -116,6 +119,7 @@ export const getOllamaUrls = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
 			...(token && { authorization: `Bearer ${token}` })
 		}
 	})
@@ -148,6 +152,7 @@ export const updateOllamaUrls = async (token: string = '', urls: string[]) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
 			...(token && { authorization: `Bearer ${token}` })
 		},
 		body: JSON.stringify({
@@ -183,6 +188,7 @@ export const getOllamaVersion = async (token: string, urlIdx?: number) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
 			...(token && { authorization: `Bearer ${token}` })
 		}
 	})
@@ -215,6 +221,7 @@ export const getOllamaModels = async (token: string = '', urlIdx: null | number 
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
 			...(token && { authorization: `Bearer ${token}` })
 		}
 	})
@@ -255,7 +262,8 @@ export const generatePrompt = async (token: string = '', model: string, conversa
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({
 			model: model,
@@ -290,7 +298,8 @@ export const generateEmbeddings = async (token: string = '', model: string, text
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({
 			model: model,
@@ -316,7 +325,8 @@ export const generateTextCompletion = async (token: string = '', model: string, 
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({
 			model: model,
@@ -345,7 +355,8 @@ export const generateChatCompletion = async (token: string = '', body: object) =
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify(body)
 	}).catch((err) => {
@@ -370,7 +381,8 @@ export const createModel = async (token: string, payload: object, urlIdx: string
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${token}`,
+				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 			},
 			body: JSON.stringify(payload)
 		}
@@ -396,7 +408,8 @@ export const deleteModel = async (token: string, tagName: string, urlIdx: string
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${token}`,
+				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 			},
 			body: JSON.stringify({
 				name: tagName
@@ -439,7 +452,8 @@ export const pullModel = async (token: string, tagName: string, urlIdx: number |
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({
 			name: tagName
@@ -474,7 +488,8 @@ export const downloadModel = async (
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${token}`,
+				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 			},
 			body: JSON.stringify({
 				url: download_url
@@ -507,7 +522,8 @@ export const uploadModel = async (token: string, file: File, urlIdx: string | nu
 		{
 			method: 'POST',
 			headers: {
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${token}`,
+				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 			},
 			body: formData
 		}

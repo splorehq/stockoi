@@ -8,6 +8,7 @@ export const getOpenAIConfig = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
 			...(token && { authorization: `Bearer ${token}` })
 		}
 	})
@@ -47,7 +48,8 @@ export const updateOpenAIConfig = async (token: string = '', config: OpenAIConfi
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({
 			...config
@@ -82,7 +84,8 @@ export const getOpenAIUrls = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -114,7 +117,8 @@ export const updateOpenAIUrls = async (token: string = '', urls: string[]) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({
 			urls: urls
@@ -149,7 +153,8 @@ export const getOpenAIKeys = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -181,7 +186,8 @@ export const updateOpenAIKeys = async (token: string = '', keys: string[]) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({
 			keys: keys
@@ -216,7 +222,8 @@ export const getOpenAIModelsDirect = async (url: string, key: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			...(key && { authorization: `Bearer ${key}` })
+			...(key && { authorization: `Bearer ${key}` }),
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -245,7 +252,8 @@ export const getOpenAIModels = async (token: string, urlIdx?: number) => {
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				...(token && { authorization: `Bearer ${token}` })
+				...(token && { authorization: `Bearer ${token}` }),
+				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 			}
 		}
 	)
@@ -284,7 +292,8 @@ export const verifyOpenAIConnection = async (
 			headers: {
 				Accept: 'application/json',
 				Authorization: `Bearer ${key}`,
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 			}
 		})
 			.then(async (res) => {
@@ -305,7 +314,8 @@ export const verifyOpenAIConnection = async (
 			headers: {
 				Accept: 'application/json',
 				Authorization: `Bearer ${token}`,
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 			},
 			body: JSON.stringify({
 				url,
@@ -342,7 +352,8 @@ export const chatCompletion = async (
 		method: 'POST',
 		headers: {
 			Authorization: `Bearer ${token}`,
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify(body)
 	}).catch((err) => {
@@ -369,7 +380,8 @@ export const generateOpenAIChatCompletion = async (
 		method: 'POST',
 		headers: {
 			Authorization: `Bearer ${token}`,
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify(body)
 	})
@@ -401,7 +413,8 @@ export const synthesizeOpenAISpeech = async (
 		method: 'POST',
 		headers: {
 			Authorization: `Bearer ${token}`,
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		},
 		body: JSON.stringify({
 			model: model,

@@ -213,7 +213,9 @@ type Config = {
 		enable_admin_chat_access: boolean;
 		enable_community_sharing: boolean;
 		enable_autocomplete_generation: boolean;
+		enable_ldap: boolean; // TODO: Added by Rajesh to fix TypeScript error
 	};
+	onboarding: boolean; // TODO: Added by Rajesh to fix TypeScript error
 	oauth: {
 		providers: {
 			[key: string]: string;
