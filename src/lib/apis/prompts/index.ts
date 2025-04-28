@@ -1,4 +1,4 @@
-import { WEBUI_API_BASE_URL } from '$lib/constants';
+import { WEBUI_API_BASE_URL, BASE_ID } from '$lib/constants';
 
 type PromptItem = {
 	command: string;
@@ -16,7 +16,7 @@ export const createNewPrompt = async (token: string, prompt: PromptItem) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			...prompt,
@@ -49,7 +49,7 @@ export const getPrompts = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -81,7 +81,7 @@ export const getPromptList = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -113,7 +113,7 @@ export const getPromptByCommand = async (token: string, command: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -146,7 +146,7 @@ export const updatePromptByCommand = async (token: string, prompt: PromptItem) =
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			...prompt,
@@ -185,7 +185,7 @@ export const deletePromptByCommand = async (token: string, command: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {

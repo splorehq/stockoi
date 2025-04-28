@@ -1,4 +1,4 @@
-import { WEBUI_API_BASE_URL } from '$lib/constants';
+import { WEBUI_API_BASE_URL, BASE_ID } from '$lib/constants';
 
 export const getAdminDetails = async (token: string) => {
 	let error = null;
@@ -7,7 +7,8 @@ export const getAdminDetails = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -34,7 +35,8 @@ export const getAdminConfig = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -61,7 +63,8 @@ export const updateAdminConfig = async (token: string, body: object) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify(body)
 	})
@@ -91,7 +94,7 @@ export const _getSessionUser = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		credentials: 'include'
 	})
@@ -114,13 +117,14 @@ export const _getSessionUser = async (token: string) => {
 
 export const getSessionUser = async (token: string) => {
 	return {
-		id: "bb1daf12-2ee3-4ecf-9c20-e1e913d845fd",
-		email: "vilay.k@splore.com",
-		name: "vilay",
-		role: "admin",
-		profile_image_url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAABFtJREFUeF7tnNtrFGccht+ZPSSbXa2HlprSqvXCahAULaVSFXthkYgXtUogVNqCF4qFCt6J/gH6D3gTKaWk6UmCQcSLQq0V2iI9gRWLpqXQekpVarI7u+7sfmWWNMkYlZlsd3x3553r3zffO8+z7x4nsUb75hnooCFgSQiNi1oQCeHyISFkPiREQtgIkOXRa4iEkBEgi6OGSAgZAbI4aoiEkBEgi6OGSAgZAbI4aoiEkBEgi6OGSAgZAbI4aoiEkBEgi6OGSAgZAbI4aoiEkBEgi6OGSAgZAbI4aoiEkBEgi6OGSAgZAbI4aoiEkBEgi6OGSEhAAlYCiadfDjjsHzPlu6je/gUw1Rmtf5yLaBuSXPI62l/tq4ONgXFGUL11Ae7VMyhf7AMqpTrOF83SFhZyH0DXQfHce3CHj0dDdoa7xEfIOKDiV3vgXvl0hrgav6yphBjnJsy90UdSsRJpIJWD1TbH+4u96bOmivxHy2GKfzee7gx2aCohztBrqIx8H+wykxm0rT2C1NLeafPlXz9E6dy+YOeJeKp1hYyDTL94COmVfvimeAv5/qURow62XcsL8TDk3r4KJNomiVTvYez9zmCEIp6KhZCON76BPcffiLFj8yNGHWy7WAjJdA8h0fnKFCIGY8eeDEYo4qlYCMn2/AQr99wkWtfB2AfPRow62HYtL8TKPoNsz8+AZU8Qqf4zjMLnLwUjFPFUawuxU6i1o2OBD2vp7LsoXx6IGHWw7ZpLyMktqNw8//Ars5OwZy+BPXcZkou3IrmoG7BTvnlTuIb8wIpgdB7DVFMJqZePKY+i8MlqmNLtek/VsPWxEeLJyPe/QP+Nb2yEeA/p6t3fURhcD7hOwx7h9Z64qYSY0h3ALTz8mr13Uol2WMkO/yfzKSsqIz/AGdpUL7eGrW8qIWG+XLRnP4/2zcdhz1o0DZ73ou69uDMeLSukBtt727vjvP9DIYDi2b1wL3/M6IP3H5g96CfcMA35j3aqaxfa1h72wS9fOIrSdwclJAyB/0uI90NV9s1h39bu8GcontkdJk5ks639lDWOMffOdd8HRPePUyh+sTMyyGE2ioeQt/4EkpkJLpW/voRzentYTpHNxkJIdudvsNJPTAq58S2ck1sigxxmo3gI6b0EK/PUBBfvJrrC4IYwnCKbjYWQjp4fYecWTkD17l7x7jxhPOIhZNvXsOd2TeFvat9reTc7sB2xEJLpPoFE5zof++qdiygMbgRMhcoJr5CFm9G+qd8Hy3ver91EHfJIr9qP9JoD01blB7pgCjdCnq2x47RCGnvZvGeXEDI3EiIhZATI4qghEkJGgCyOGiIhZATI4qghEkJGgCyOGiIhZATI4qghEkJGgCyOGiIhZATI4qghEkJGgCyOGiIhZATI4qghEkJGgCyOGiIhZATI4qghEkJGgCyOGiIhZATI4qghEkJGgCyOGiIhZATI4qghEkJGgCyOGiIhZATI4qghEkJGgCyOGiIhZATI4qghZEL+BWW/VgOLg98pAAAAAElFTkSuQmCC",
+		id: 'bb1daf12-2ee3-4ecf-9c20-e1e913d845fd',
+		email: 'vilay.k@splore.com',
+		name: 'vilay',
+		role: 'admin',
+		profile_image_url:
+			'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAABFtJREFUeF7tnNtrFGccht+ZPSSbXa2HlprSqvXCahAULaVSFXthkYgXtUogVNqCF4qFCt6J/gH6D3gTKaWk6UmCQcSLQq0V2iI9gRWLpqXQekpVarI7u+7sfmWWNMkYlZlsd3x3553r3zffO8+z7x4nsUb75hnooCFgSQiNi1oQCeHyISFkPiREQtgIkOXRa4iEkBEgi6OGSAgZAbI4aoiEkBEgi6OGSAgZAbI4aoiEkBEgi6OGSAgZAbI4aoiEkBEgi6OGSAgZAbI4aoiEkBEgi6OGSAgZAbI4aoiEkBEgi6OGSAgZAbI4aoiEkBEgi6OGSEhAAlYCiadfDjjsHzPlu6je/gUw1Rmtf5yLaBuSXPI62l/tq4ONgXFGUL11Ae7VMyhf7AMqpTrOF83SFhZyH0DXQfHce3CHj0dDdoa7xEfIOKDiV3vgXvl0hrgav6yphBjnJsy90UdSsRJpIJWD1TbH+4u96bOmivxHy2GKfzee7gx2aCohztBrqIx8H+wykxm0rT2C1NLeafPlXz9E6dy+YOeJeKp1hYyDTL94COmVfvimeAv5/qURow62XcsL8TDk3r4KJNomiVTvYez9zmCEIp6KhZCON76BPcffiLFj8yNGHWy7WAjJdA8h0fnKFCIGY8eeDEYo4qlYCMn2/AQr99wkWtfB2AfPRow62HYtL8TKPoNsz8+AZU8Qqf4zjMLnLwUjFPFUawuxU6i1o2OBD2vp7LsoXx6IGHWw7ZpLyMktqNw8//Ars5OwZy+BPXcZkou3IrmoG7BTvnlTuIb8wIpgdB7DVFMJqZePKY+i8MlqmNLtek/VsPWxEeLJyPe/QP+Nb2yEeA/p6t3fURhcD7hOwx7h9Z64qYSY0h3ALTz8mr13Uol2WMkO/yfzKSsqIz/AGdpUL7eGrW8qIWG+XLRnP4/2zcdhz1o0DZ73ou69uDMeLSukBtt727vjvP9DIYDi2b1wL3/M6IP3H5g96CfcMA35j3aqaxfa1h72wS9fOIrSdwclJAyB/0uI90NV9s1h39bu8GcontkdJk5ks639lDWOMffOdd8HRPePUyh+sTMyyGE2ioeQt/4EkpkJLpW/voRzentYTpHNxkJIdudvsNJPTAq58S2ck1sigxxmo3gI6b0EK/PUBBfvJrrC4IYwnCKbjYWQjp4fYecWTkD17l7x7jxhPOIhZNvXsOd2TeFvat9reTc7sB2xEJLpPoFE5zof++qdiygMbgRMhcoJr5CFm9G+qd8Hy3ver91EHfJIr9qP9JoD01blB7pgCjdCnq2x47RCGnvZvGeXEDI3EiIhZATI4qghEkJGgCyOGiIhZATI4qghEkJGgCyOGiIhZATI4qghEkJGgCyOGiIhZATI4qghEkJGgCyOGiIhZATI4qghEkJGgCyOGiIhZATI4qghEkJGgCyOGiIhZATI4qghEkJGgCyOGiIhZATI4qghEkJGgCyOGiIhZATI4qghEkJGgCyOGiIhZATI4qghZEL+BWW/VgOLg98pAAAAAElFTkSuQmCC',
 		token: token,
-		token_type: "Bearer",
+		token_type: 'Bearer',
 		expires_at: null,
 		permissions: {
 			workspace: {
@@ -159,7 +163,8 @@ export const ldapUserSignIn = async (user: string, password: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/ldap`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 		},
 		credentials: 'include',
 		body: JSON.stringify({
@@ -192,6 +197,7 @@ export const getLdapConfig = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 			...(token && { authorization: `Bearer ${token}` })
 		}
 	})
@@ -219,6 +225,7 @@ export const updateLdapConfig = async (token: string = '', enable_ldap: boolean)
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 			...(token && { authorization: `Bearer ${token}` })
 		},
 		body: JSON.stringify({
@@ -249,6 +256,7 @@ export const getLdapServer = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 			...(token && { authorization: `Bearer ${token}` })
 		}
 	})
@@ -276,6 +284,7 @@ export const updateLdapServer = async (token: string = '', body: object) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 			...(token && { authorization: `Bearer ${token}` })
 		},
 		body: JSON.stringify(body)
@@ -299,12 +308,25 @@ export const updateLdapServer = async (token: string = '', body: object) => {
 
 // TODO To Replace this later
 export const userSignInWithToken = async () => {
-	localStorage.setItem('token', "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InhCOVNLRGVlSjFsYkRDWFZEeEozTUEtcThUOCJ9.eyJhdWQiOiI2MzZjYmQyZi0zMDEzLTRmZWEtYmNmYi0zNjJjNDg4NDEyNTIiLCJleHAiOjE3NDU2NjI3MDYsImlhdCI6MTc0NTU3NjMwNiwiaXNzIjoiYXV0aC5zcGxvcmUuc3QiLCJzdWIiOiJlMWVlNGJmZC04MWU0LTQ1ZDUtYWM0Mi05Y2M0YmEwODc2YzEiLCJqdGkiOiJmNDIwZDA5OC01MTE5LTQ5ZGItODk5Zi1hYzEzNDA0ZmY5ZTgiLCJhdXRoZW50aWNhdGlvblR5cGUiOiJQQVNTV09SRCIsImVtYWlsIjoidmlsYXkua0BzcGxvcmUuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImFwcGxpY2F0aW9uSWQiOiI2MzZjYmQyZi0zMDEzLTRmZWEtYmNmYi0zNjJjNDg4NDEyNTIiLCJyb2xlcyI6WyJ1c2VyIl0sInNpZCI6IjkzOWZlNTg2LTYyMDEtNDk2Ny1hNzU1LWYyZWVkMmNmODRkNyIsImF1dGhfdGltZSI6MTc0NTU3NjMwNiwidGlkIjoiZjBjMmVlZDktYWMxZi0xMDZiLTAxNjUtMWFjMWU0ODExMjhhIn0.YJ6u03C-s-MK-cWLTm15lhG5nDGOAwUMjx1mPsmcwTPoAuPQXYlhEaRZ08QcMRFgz0Un8aA2C_eWy-or5_y4rXVrt8cx7bMh9Ftzh6i5GE6Xxcol2ZqqJ2A3Q8TrWJY2EH_4bfwOnKWwP93WJR7pZLSvy8NmRRV4j6wHfOFdW2XO8-SbvCOgwVSQ8n4p69GTBhR5IvNiJ936bh9friLq2cCSwLeg2guSvAuRAUl6ZW6cLyyoOmKQeRA8GSGBC90i0piIrdQX5QAH6AcEFOO167EpospdQt1HQbxqGA7uRtlfwEDCCp9HdGiU4kB10XM5j_ZVCmeoyCV4gXoDv8y7mw");
+	localStorage.setItem(
+		'token',
+		'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InhCOVNLRGVlSjFsYkRDWFZEeEozTUEtcThUOCJ9.eyJhdWQiOiI2MzZjYmQyZi0zMDEzLTRmZWEtYmNmYi0zNjJjNDg4NDEyNTIiLCJleHAiOjE3NDU2NjI3MDYsImlhdCI6MTc0NTU3NjMwNiwiaXNzIjoiYXV0aC5zcGxvcmUuc3QiLCJzdWIiOiJlMWVlNGJmZC04MWU0LTQ1ZDUtYWM0Mi05Y2M0YmEwODc2YzEiLCJqdGkiOiJmNDIwZDA5OC01MTE5LTQ5ZGItODk5Zi1hYzEzNDA0ZmY5ZTgiLCJhdXRoZW50aWNhdGlvblR5cGUiOiJQQVNTV09SRCIsImVtYWlsIjoidmlsYXkua0BzcGxvcmUuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImFwcGxpY2F0aW9uSWQiOiI2MzZjYmQyZi0zMDEzLTRmZWEtYmNmYi0zNjJjNDg4NDEyNTIiLCJyb2xlcyI6WyJ1c2VyIl0sInNpZCI6IjkzOWZlNTg2LTYyMDEtNDk2Ny1hNzU1LWYyZWVkMmNmODRkNyIsImF1dGhfdGltZSI6MTc0NTU3NjMwNiwidGlkIjoiZjBjMmVlZDktYWMxZi0xMDZiLTAxNjUtMWFjMWU0ODExMjhhIn0.YJ6u03C-s-MK-cWLTm15lhG5nDGOAwUMjx1mPsmcwTPoAuPQXYlhEaRZ08QcMRFgz0Un8aA2C_eWy-or5_y4rXVrt8cx7bMh9Ftzh6i5GE6Xxcol2ZqqJ2A3Q8TrWJY2EH_4bfwOnKWwP93WJR7pZLSvy8NmRRV4j6wHfOFdW2XO8-SbvCOgwVSQ8n4p69GTBhR5IvNiJ936bh9friLq2cCSwLeg2guSvAuRAUl6ZW6cLyyoOmKQeRA8GSGBC90i0piIrdQX5QAH6AcEFOO167EpospdQt1HQbxqGA7uRtlfwEDCCp9HdGiU4kB10XM5j_ZVCmeoyCV4gXoDv8y7mw'
+	);
 	const token = localStorage.getItem('token');
 	if (token) {
 		return token;
 	}
 	return null;
+};
+
+export const setTokenAndBaseId = async (token: string, baseId: string) => {
+	localStorage.setItem('token', token);
+	localStorage.setItem('baseId', baseId);
+};
+
+export const removeTokenAndBaseId = async () => {
+	localStorage.removeItem('token');
+	localStorage.removeItem('baseId');
 };
 
 export const userSignIn = async (email: string, password: string) => {
@@ -313,7 +335,8 @@ export const userSignIn = async (email: string, password: string) => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/signin`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 		},
 		credentials: 'include',
 		body: JSON.stringify({
@@ -350,7 +373,8 @@ export const userSignUp = async (
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/signup`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 		},
 		credentials: 'include',
 		body: JSON.stringify({
@@ -383,7 +407,8 @@ export const userSignOut = async () => {
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/signout`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 		},
 		credentials: 'include'
 	})
@@ -415,6 +440,7 @@ export const addUser = async (
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 			...(token && { authorization: `Bearer ${token}` })
 		},
 		body: JSON.stringify({
@@ -448,6 +474,7 @@ export const updateUserProfile = async (token: string, name: string, profileImag
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 			...(token && { authorization: `Bearer ${token}` })
 		},
 		body: JSON.stringify({
@@ -479,6 +506,7 @@ export const updateUserPassword = async (token: string, password: string, newPas
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 			...(token && { authorization: `Bearer ${token}` })
 		},
 		body: JSON.stringify({
@@ -510,6 +538,7 @@ export const getSignUpEnabledStatus = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 			Authorization: `Bearer ${token}`
 		}
 	})
@@ -537,6 +566,7 @@ export const getDefaultUserRole = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 			Authorization: `Bearer ${token}`
 		}
 	})
@@ -564,6 +594,7 @@ export const updateDefaultUserRole = async (token: string, role: string) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 			Authorization: `Bearer ${token}`
 		},
 		body: JSON.stringify({
@@ -594,6 +625,7 @@ export const toggleSignUpEnabledStatus = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 			Authorization: `Bearer ${token}`
 		}
 	})
@@ -621,6 +653,7 @@ export const getJWTExpiresDuration = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 			Authorization: `Bearer ${token}`
 		}
 	})
@@ -648,6 +681,7 @@ export const updateJWTExpiresDuration = async (token: string, duration: string) 
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 			Authorization: `Bearer ${token}`
 		},
 		body: JSON.stringify({
@@ -678,6 +712,7 @@ export const createAPIKey = async (token: string) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 			Authorization: `Bearer ${token}`
 		}
 	})
@@ -703,8 +738,8 @@ export const getAPIKey = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 			Authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
 		}
 	})
 		.then(async (res) => {
@@ -729,6 +764,7 @@ export const deleteAPIKey = async (token: string) => {
 		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json',
+			'x-base-id': BASE_ID,
 			Authorization: `Bearer ${token}`
 		}
 	})

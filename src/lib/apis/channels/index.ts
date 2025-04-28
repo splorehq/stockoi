@@ -1,4 +1,4 @@
-import { WEBUI_API_BASE_URL } from '$lib/constants';
+import { WEBUI_API_BASE_URL, BASE_ID } from '$lib/constants';
 import { t } from 'i18next';
 
 type ChannelForm = {
@@ -17,7 +17,7 @@ export const createNewChannel = async (token: string = '', channel: ChannelForm)
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({ ...channel })
 	})
@@ -50,7 +50,7 @@ export const getChannels = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -82,7 +82,7 @@ export const getChannelById = async (token: string = '', channel_id: string) => 
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -118,7 +118,7 @@ export const updateChannelById = async (
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({ ...channel })
 	})
@@ -151,7 +151,7 @@ export const deleteChannelById = async (token: string = '', channel_id: string) 
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -190,7 +190,7 @@ export const getChannelMessages = async (
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				authorization: `Bearer ${token}`,
-				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+				'x-base-id': BASE_ID
 			}
 		}
 	)
@@ -231,7 +231,7 @@ export const getChannelThreadMessages = async (
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				authorization: `Bearer ${token}`,
-				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+				'x-base-id': BASE_ID
 			}
 		}
 	)
@@ -271,7 +271,7 @@ export const sendMessage = async (token: string = '', channel_id: string, messag
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({ ...message })
 	})
@@ -311,7 +311,7 @@ export const updateMessage = async (
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				authorization: `Bearer ${token}`,
-				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+				'x-base-id': BASE_ID
 			},
 			body: JSON.stringify({ ...message })
 		}
@@ -352,7 +352,7 @@ export const addReaction = async (
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				authorization: `Bearer ${token}`,
-				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+				'x-base-id': BASE_ID
 			},
 			body: JSON.stringify({ name })
 		}
@@ -393,7 +393,7 @@ export const removeReaction = async (
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				authorization: `Bearer ${token}`,
-				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+				'x-base-id': BASE_ID
 			},
 			body: JSON.stringify({ name })
 		}
@@ -429,7 +429,7 @@ export const deleteMessage = async (token: string = '', channel_id: string, mess
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				authorization: `Bearer ${token}`,
-				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+				'x-base-id': BASE_ID
 			}
 		}
 	)

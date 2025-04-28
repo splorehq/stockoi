@@ -1,4 +1,4 @@
-import { WEBUI_API_BASE_URL } from '$lib/constants';
+import { WEBUI_API_BASE_URL, BASE_ID } from '$lib/constants';
 
 export const getConfig = async (token: string = '') => {
 	let error = null;
@@ -9,7 +9,7 @@ export const getConfig = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -40,7 +40,8 @@ export const updateConfig = async (token: string, config: object) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			...config
@@ -71,7 +72,8 @@ export const getAllFeedbacks = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -102,7 +104,8 @@ export const exportAllFeedbacks = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -133,7 +136,8 @@ export const createNewFeedback = async (token: string, feedback: object) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			...feedback
@@ -164,7 +168,8 @@ export const getFeedbackById = async (token: string, feedbackId: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -195,7 +200,8 @@ export const updateFeedbackById = async (token: string, feedbackId: string, feed
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			...feedback
@@ -226,7 +232,8 @@ export const deleteFeedbackById = async (token: string, feedbackId: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {

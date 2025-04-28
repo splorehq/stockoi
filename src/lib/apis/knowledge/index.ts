@@ -1,4 +1,4 @@
-import { WEBUI_API_BASE_URL } from '$lib/constants';
+import { WEBUI_API_BASE_URL, BASE_ID } from '$lib/constants';
 
 export const createNewKnowledge = async (
 	token: string,
@@ -13,7 +13,8 @@ export const createNewKnowledge = async (
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			name: name,
@@ -46,7 +47,8 @@ export const getKnowledgeBases = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -77,7 +79,8 @@ export const getKnowledgeBaseList = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -108,7 +111,8 @@ export const getKnowledgeById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -147,7 +151,8 @@ export const updateKnowledgeById = async (token: string, id: string, form: Knowl
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			name: form?.name ? form.name : undefined,
@@ -185,7 +190,8 @@ export const addFileToKnowledgeById = async (token: string, id: string, fileId: 
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			file_id: fileId
@@ -220,7 +226,8 @@ export const updateFileFromKnowledgeById = async (token: string, id: string, fil
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			file_id: fileId
@@ -255,7 +262,8 @@ export const removeFileFromKnowledgeById = async (token: string, id: string, fil
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			file_id: fileId
@@ -290,7 +298,8 @@ export const resetKnowledgeById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -322,7 +331,8 @@ export const deleteKnowledgeById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {

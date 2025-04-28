@@ -1,4 +1,4 @@
-import { IMAGES_API_BASE_URL } from '$lib/constants';
+import { IMAGES_API_BASE_URL, BASE_ID } from '$lib/constants';
 
 export const getConfig = async (token: string = '') => {
 	let error = null;
@@ -8,7 +8,8 @@ export const getConfig = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -40,7 +41,8 @@ export const updateConfig = async (token: string = '', config: object) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			...config
@@ -75,7 +77,8 @@ export const verifyConfigUrl = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -107,7 +110,8 @@ export const getImageGenerationConfig = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -139,7 +143,8 @@ export const updateImageGenerationConfig = async (token: string = '', config: ob
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({ ...config })
 	})
@@ -172,7 +177,8 @@ export const getImageGenerationModels = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -204,7 +210,8 @@ export const imageGenerations = async (token: string = '', prompt: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			prompt: prompt

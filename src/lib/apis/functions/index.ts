@@ -1,4 +1,4 @@
-import { WEBUI_API_BASE_URL } from '$lib/constants';
+import { WEBUI_API_BASE_URL, BASE_ID } from '$lib/constants';
 
 export const createNewFunction = async (token: string, func: object) => {
 	let error = null;
@@ -8,7 +8,8 @@ export const createNewFunction = async (token: string, func: object) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			...func
@@ -39,7 +40,8 @@ export const getFunctions = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -70,7 +72,8 @@ export const exportFunctions = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -101,7 +104,8 @@ export const getFunctionById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -133,7 +137,8 @@ export const updateFunctionById = async (token: string, id: string, func: object
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			...func
@@ -168,7 +173,8 @@ export const deleteFunctionById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -200,7 +206,8 @@ export const toggleFunctionById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -232,7 +239,8 @@ export const toggleGlobalById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -264,7 +272,8 @@ export const getFunctionValvesById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -296,7 +305,8 @@ export const getFunctionValvesSpecById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -328,7 +338,8 @@ export const updateFunctionValvesById = async (token: string, id: string, valves
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			...valves
@@ -363,7 +374,8 @@ export const getUserValvesById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -395,7 +407,8 @@ export const getUserValvesSpecById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -427,7 +440,8 @@ export const updateUserValvesById = async (token: string, id: string, valves: ob
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			...valves

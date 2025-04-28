@@ -1,4 +1,4 @@
-import { OPENAI_API_BASE_URL, WEBUI_API_BASE_URL, WEBUI_BASE_URL } from '$lib/constants';
+import { OPENAI_API_BASE_URL, WEBUI_API_BASE_URL, WEBUI_BASE_URL, BASE_ID } from '$lib/constants';
 
 export const getOpenAIConfig = async (token: string = '') => {
 	let error = null;
@@ -8,8 +8,8 @@ export const getOpenAIConfig = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -49,7 +49,7 @@ export const updateOpenAIConfig = async (token: string = '', config: OpenAIConfi
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			...config
@@ -85,7 +85,7 @@ export const getOpenAIUrls = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -118,7 +118,7 @@ export const updateOpenAIUrls = async (token: string = '', urls: string[]) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			urls: urls
@@ -154,7 +154,7 @@ export const getOpenAIKeys = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -187,7 +187,7 @@ export const updateOpenAIKeys = async (token: string = '', keys: string[]) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			keys: keys
@@ -223,7 +223,7 @@ export const getOpenAIModelsDirect = async (url: string, key: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(key && { authorization: `Bearer ${key}` }),
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -253,7 +253,7 @@ export const getOpenAIModels = async (token: string, urlIdx?: number) => {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				...(token && { authorization: `Bearer ${token}` }),
-				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+				'x-base-id': BASE_ID
 			}
 		}
 	)
@@ -293,7 +293,7 @@ export const verifyOpenAIConnection = async (
 				Accept: 'application/json',
 				Authorization: `Bearer ${key}`,
 				'Content-Type': 'application/json',
-				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+				'x-base-id': BASE_ID
 			}
 		})
 			.then(async (res) => {
@@ -315,7 +315,7 @@ export const verifyOpenAIConnection = async (
 				Accept: 'application/json',
 				Authorization: `Bearer ${token}`,
 				'Content-Type': 'application/json',
-				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+				'x-base-id': BASE_ID
 			},
 			body: JSON.stringify({
 				url,
@@ -353,7 +353,7 @@ export const chatCompletion = async (
 		headers: {
 			Authorization: `Bearer ${token}`,
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify(body)
 	}).catch((err) => {
@@ -381,7 +381,7 @@ export const generateOpenAIChatCompletion = async (
 		headers: {
 			Authorization: `Bearer ${token}`,
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify(body)
 	})
@@ -414,7 +414,7 @@ export const synthesizeOpenAISpeech = async (
 		headers: {
 			Authorization: `Bearer ${token}`,
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			model: model,

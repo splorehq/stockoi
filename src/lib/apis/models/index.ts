@@ -1,4 +1,4 @@
-import { WEBUI_API_BASE_URL } from '$lib/constants';
+import { WEBUI_API_BASE_URL, BASE_ID } from '$lib/constants';
 
 export const getModels = async (token: string = '') => {
 	let error = null;
@@ -9,7 +9,7 @@ export const getModels = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -41,7 +41,7 @@ export const getBaseModels = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -72,7 +72,8 @@ export const createNewModel = async (token: string, model: object) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify(model)
 	})
@@ -104,7 +105,8 @@ export const getModelById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -139,7 +141,8 @@ export const toggleModelById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -174,7 +177,8 @@ export const updateModelById = async (token: string, id: string, model: object) 
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify(model)
 	})
@@ -210,7 +214,8 @@ export const deleteModelById = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -242,7 +247,8 @@ export const deleteAllModels = async (token: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {

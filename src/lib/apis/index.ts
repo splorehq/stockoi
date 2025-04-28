@@ -1,4 +1,4 @@
-import { WEBUI_API_BASE_URL, WEBUI_BASE_URL } from '$lib/constants';
+import { WEBUI_API_BASE_URL, WEBUI_BASE_URL, BASE_ID } from '$lib/constants';
 import { convertOpenApiToToolPayload } from '$lib/utils';
 import { getOpenAIModelsDirect } from './openai';
 
@@ -15,8 +15,8 @@ export const getModels = async (
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -164,8 +164,8 @@ export const chatCompleted = async (token: string, body: ChatCompletedForm) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify(body)
 	})
@@ -204,8 +204,8 @@ export const chatAction = async (token: string, action_id: string, body: ChatAct
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify(body)
 	})
@@ -238,8 +238,8 @@ export const stopTask = async (token: string, id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -271,8 +271,8 @@ export const getToolServerData = async (token: string, url: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -414,7 +414,8 @@ export const executeToolServer = async (
 		// Prepare headers and request options
 		const headers: Record<string, string> = {
 			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		};
 
 		let requestOptions: RequestInit = {
@@ -448,8 +449,8 @@ export const getTaskConfig = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -477,8 +478,8 @@ export const updateTaskConfig = async (token: string, config: object) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify(config)
 	})
@@ -516,8 +517,8 @@ export const generateTitle = async (
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			model: model,
@@ -557,8 +558,8 @@ export const generateTags = async (
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			model: model,
@@ -630,8 +631,8 @@ export const generateEmoji = async (
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			model: model,
@@ -680,8 +681,8 @@ export const generateQueries = async (
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			model: model,
@@ -752,8 +753,8 @@ export const generateAutoCompletion = async (
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			model: model,
@@ -823,8 +824,8 @@ export const generateMoACompletion = async (
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			model: model,
@@ -832,12 +833,11 @@ export const generateMoACompletion = async (
 			responses: responses,
 			stream: true
 		})
-	})
-		.catch((err) => {
-			console.log(err);
-			error = err;
-			return null;
-		});
+	}).catch((err) => {
+		console.log(err);
+		error = err;
+		return null;
+	});
 
 	if (error) {
 		throw error;
@@ -854,8 +854,8 @@ export const getPipelinesList = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -887,7 +887,7 @@ export const uploadPipeline = async (token: string, file: File, urlIdx: string) 
 	const res = await fetch(`${WEBUI_BASE_URL}/api/v1/pipelines/upload`, {
 		method: 'POST',
 		headers: {
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
+			'x-base-id': BASE_ID,
 			...(token && { authorization: `Bearer ${token}` })
 			// 'Content-Type': 'multipart/form-data' is not needed as Fetch API will set it automatically
 		},
@@ -922,8 +922,8 @@ export const downloadPipeline = async (token: string, url: string, urlIdx: strin
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			url: url,
@@ -959,8 +959,8 @@ export const deletePipeline = async (token: string, id: string, urlIdx: string) 
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			id: id,
@@ -1001,8 +1001,8 @@ export const getPipelines = async (token: string, urlIdx?: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -1038,8 +1038,8 @@ export const getPipelineValves = async (token: string, pipeline_id: string, urlI
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-				...(token && { authorization: `Bearer ${token}` })
+				...(token && { authorization: `Bearer ${token}` }),
+				'x-base-id': BASE_ID,
 			}
 		}
 	)
@@ -1075,8 +1075,8 @@ export const getPipelineValvesSpec = async (token: string, pipeline_id: string, 
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-				...(token && { authorization: `Bearer ${token}` })
+				...(token && { authorization: `Bearer ${token}` }),
+				'x-base-id': BASE_ID,
 			}
 		}
 	)
@@ -1117,8 +1117,8 @@ export const updatePipelineValves = async (
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-				...(token && { authorization: `Bearer ${token}` })
+				...(token && { authorization: `Bearer ${token}` }),
+				'x-base-id': BASE_ID,
 			},
 			body: JSON.stringify(valves)
 		}
@@ -1153,7 +1153,7 @@ export const getBackendConfig = async () => {
 		credentials: 'include',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -1180,7 +1180,7 @@ export const getChangelog = async () => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -1207,8 +1207,8 @@ export const getVersionUpdates = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -1235,8 +1235,8 @@ export const getModelFilterConfig = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -1267,8 +1267,8 @@ export const updateModelFilterConfig = async (
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			enabled: enabled,
@@ -1299,8 +1299,8 @@ export const getWebhookUrl = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -1327,8 +1327,8 @@ export const updateWebhookUrl = async (token: string, url: string) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			url: url
@@ -1358,8 +1358,8 @@ export const getCommunitySharingEnabledStatus = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -1386,8 +1386,8 @@ export const toggleCommunitySharingEnabledStatus = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -1414,8 +1414,8 @@ export const getModelConfig = async (token: string): Promise<GlobalModelConfig> 
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -1460,8 +1460,8 @@ export const updateModelConfig = async (token: string, config: GlobalModelConfig
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			models: config

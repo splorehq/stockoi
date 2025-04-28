@@ -1,4 +1,4 @@
-import { OLLAMA_API_BASE_URL } from '$lib/constants';
+import { OLLAMA_API_BASE_URL, BASE_ID } from '$lib/constants';
 
 export const verifyOllamaConnection = async (
 	token: string = '',
@@ -13,7 +13,7 @@ export const verifyOllamaConnection = async (
 			Accept: 'application/json',
 			Authorization: `Bearer ${token}`,
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			url,
@@ -44,8 +44,8 @@ export const getOllamaConfig = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -83,8 +83,8 @@ export const updateOllamaConfig = async (token: string = '', config: OllamaConfi
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			...config
@@ -119,8 +119,8 @@ export const getOllamaUrls = async (token: string = '') => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -152,8 +152,8 @@ export const updateOllamaUrls = async (token: string = '', urls: string[]) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		},
 		body: JSON.stringify({
 			urls: urls
@@ -188,8 +188,8 @@ export const getOllamaVersion = async (token: string, urlIdx?: number) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -221,8 +221,8 @@ export const getOllamaModels = async (token: string = '', urlIdx: null | number 
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID,
 		}
 	})
 		.then(async (res) => {
@@ -263,7 +263,7 @@ export const generatePrompt = async (token: string = '', model: string, conversa
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			model: model,
@@ -299,7 +299,7 @@ export const generateEmbeddings = async (token: string = '', model: string, text
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			model: model,
@@ -326,7 +326,7 @@ export const generateTextCompletion = async (token: string = '', model: string, 
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			model: model,
@@ -356,7 +356,7 @@ export const generateChatCompletion = async (token: string = '', body: object) =
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify(body)
 	}).catch((err) => {
@@ -382,7 +382,7 @@ export const createModel = async (token: string, payload: object, urlIdx: string
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
-				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+				'x-base-id': BASE_ID
 			},
 			body: JSON.stringify(payload)
 		}
@@ -409,7 +409,7 @@ export const deleteModel = async (token: string, tagName: string, urlIdx: string
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
-				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+				'x-base-id': BASE_ID
 			},
 			body: JSON.stringify({
 				name: tagName
@@ -453,7 +453,7 @@ export const pullModel = async (token: string, tagName: string, urlIdx: number |
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			name: tagName
@@ -489,7 +489,7 @@ export const downloadModel = async (
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
-				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+				'x-base-id': BASE_ID
 			},
 			body: JSON.stringify({
 				url: download_url
@@ -523,7 +523,7 @@ export const uploadModel = async (token: string, file: File, urlIdx: string | nu
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${token}`,
-				'x-base-id': 'STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2'
+				'x-base-id': BASE_ID
 			},
 			body: formData
 		}
