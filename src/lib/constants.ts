@@ -12,8 +12,8 @@ export const AUDIO_API_BASE_URL = `${WEBUI_BASE_URL}/api/v1/audio`;
 export const IMAGES_API_BASE_URL = `${WEBUI_BASE_URL}/api/v1/images`;
 export const RETRIEVAL_API_BASE_URL = `${WEBUI_BASE_URL}/api/v1/retrieval`;
 
-export const WEBUI_VERSION = '0.0.1';
-export const WEBUI_BUILD_HASH = '0.0.1';
+export const WEBUI_VERSION = APP_VERSION;
+export const WEBUI_BUILD_HASH = APP_BUILD_HASH;
 export const REQUIRED_OLLAMA_VERSION = '0.1.16';
 
 export const SUPPORTED_FILE_TYPE = [
@@ -97,7 +97,12 @@ export const SUPPORTED_FILE_EXTENSIONS = [
 export const PASTED_TEXT_CHARACTER_LIMIT = 1000;
 
 // write function to fetch baseId from localStorage
-export const BASE_ID = localStorage.getItem('baseId') || 'core';
+export const BASE_ID = localStorage.getItem('baseId') ?? 'core';
+
+// Fusion Auth
+export const FUSION_AUTH_BASE_URL = '';
+export const FUSION_AUTH_APP_ID = '';
+export const FUSION_AUTH_API_KEY = '';
 
 // Source: https://kit.svelte.dev/docs/modules#$env-static-public
 // This feature, akin to $env/static/private, exclusively incorporates environment variables
