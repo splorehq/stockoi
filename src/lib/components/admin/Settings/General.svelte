@@ -177,7 +177,7 @@
 									{$i18n.t('Help')}
 								</div>
 								<div class=" text-xs text-gray-500">
-									{$i18n.t('Discover how to use Open WebUI and seek support from the community.')}
+									{$i18n.t('Discover how to use Splore and seek support from the community.')}
 								</div>
 							</div>
 
@@ -619,7 +619,7 @@
 
 					<div class="mb-2.5 w-full justify-between">
 						<div class="flex w-full justify-between">
-							<div class=" self-center text-xs font-medium">{$i18n.t('WebUI URL')}</div>
+							<div class=" self-center text-xs font-medium">{$i18n.t('Splore URL')}</div>
 						</div>
 
 						<div class="flex mt-2 space-x-2">
@@ -633,7 +633,7 @@
 
 						<div class="mt-2 text-xs text-gray-400 dark:text-gray-500">
 							{$i18n.t(
-								'Enter the public URL of your WebUI. This URL will be used to generate links in the notifications.'
+								'Enter the public URL of your Splore. This URL will be used to generate links in the notifications.'
 							)}
 						</div>
 					</div>

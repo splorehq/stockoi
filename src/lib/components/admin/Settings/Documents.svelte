@@ -98,10 +98,6 @@
 			embedding_engine: embeddingEngine,
 			embedding_model: embeddingModel,
 			embedding_batch_size: embeddingBatchSize,
-			ollama_config: {
-				key: OllamaKey,
-				url: OllamaUrl
-			},
 			openai_config: {
 				key: OpenAIKey,
 				url: OpenAIUrl
@@ -201,8 +197,8 @@
 			OpenAIKey = embeddingConfig.openai_config.key;
 			OpenAIUrl = embeddingConfig.openai_config.url;
 
-			OllamaKey = embeddingConfig.ollama_config.key;
-			OllamaUrl = embeddingConfig.ollama_config.url;
+			// OllamaKey = embeddingConfig.ollama_config.key;
+			// OllamaUrl = embeddingConfig.ollama_config.url;
 		}
 	};
 

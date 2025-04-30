@@ -1,6 +1,6 @@
 import { browser, dev } from '$app/environment';
 
-export const APP_NAME = 'Splore AI';
+export const APP_NAME = 'Splore';
 
 export const WEBUI_HOSTNAME = 'core.splore.st';
 export const WEBUI_BASE_URL = `https://${WEBUI_HOSTNAME}`;
