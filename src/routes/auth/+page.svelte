@@ -8,10 +8,10 @@
 	import { getBackendConfig } from '$lib/apis';
 	import { ldapUserSignIn, getSessionUser, userSignIn, userSignUp, userSignInWithToken, setTokenAndBaseId } from '$lib/apis/auths';
 
-	import { WEBUI_API_BASE_URL, WEBUI_BASE_URL } from '$lib/constants';
+	import { WEBUI_BASE_URL, FUSION_AUTH_BASE_URL, FUSION_AUTH_APP_ID, FUSION_AUTH_API_KEY } from '$lib/constants';
 	import { WEBUI_NAME, config, user, socket } from '$lib/stores';
 
-	import { generateInitialsImage, canvasPixelTest } from '$lib/utils';
+	import { generateInitialsImage } from '$lib/utils';
 
 	import Spinner from '$lib/components/common/Spinner.svelte';
 	import OnBoarding from '$lib/components/OnBoarding.svelte';
@@ -29,6 +29,10 @@
 	let ldapUsername = '';
 	let token = '';
 	let baseId = '';
+	let orgName = '';
+	
+	// Tab state for login methods
+	let activeTab = 'fusion'; // 'fusion' or 'token'
 
 	const querystringValue = (key) => {
 		const querystring = window.location.search;
@@ -100,6 +104,80 @@
 			toast.error($i18n.t('Please enter a valid token'));
 		}
 	};
+
+	const signInWithFusion = async () => {
+		try {
+
+			if(orgName === ''){
+				toast.error($i18n.t('Please enter an organization name'));
+				return;
+			}
+
+			if(email === ''){
+				toast.error($i18n.t('Please enter an email'));
+				return;
+			}
+
+			if(password === ''){
+				toast.error($i18n.t('Please enter a password'));
+				return;
+			}
+
+			if(orgName !== 'cix') {
+				toast.error($i18n.t('Invalid organization name'));
+				return;
+			}
+
+			if(FUSION_AUTH_BASE_URL === undefined || FUSION_AUTH_APP_ID === undefined || FUSION_AUTH_API_KEY === undefined) {
+				toast.error($i18n.t('Auth configuration is missing'));
+				return;
+			}
+
+			const fusionAuthUrl = `${FUSION_AUTH_BASE_URL}/api/login`;
+
+			const requestBody = {
+			  loginId: email,
+			  password: password,
+			  applicationId: FUSION_AUTH_APP_ID ?? ''
+			};
+
+			const response = await fetch(fusionAuthUrl, {
+			  method: 'POST',
+			  headers: {
+			    'Content-Type': 'application/json',
+			    'Authorization': FUSION_AUTH_API_KEY
+			  },
+			  body: JSON.stringify(requestBody)
+			});
+
+			const jsonData = await response.json();
+
+			if (jsonData.token) {
+				localStorage.setItem("token", jsonData.token);
+				localStorage.setItem("refreshToken", jsonData.token);
+				localStorage.setItem("expiry", jsonData.tokenExpirationInstant);
+
+				// TODO: temp baseId
+				localStorage.setItem("baseId", "STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2");
+				
+				// Get the user session with the token
+				const sessionUser = await getSessionUser(jsonData.token).catch((error) => {
+					toast.error(`${error}`);
+					return null;
+				});
+				
+				if (sessionUser) {
+					await setSessionUser(sessionUser);
+				} else {
+					window.location.href = querystringValue('redirect') || '/';
+				}
+			} else {
+				toast.error($i18n.t('Authentication failed. Please check your credentials.'));
+			}
+		} catch (error) {
+			toast.error($i18n.t('Authentication failed. Please try again.'));
+		}
+	}
 
 	const submitHandler = async () => {
 		if (mode === 'ldap') {
@@ -512,7 +590,7 @@
 			</div>
 
 			<!-- Set Token & BaseID -->
-			<div class="w-full sm:max-w-md px-10 min-h-screen flex flex-col text-center">
+			<div class="w-full sm:max-w-md px-10 min-h-screen flex flex-col text-center hidden">
 				<div class="my-auto pb-10 w-full dark:text-gray-100">
 					<div class=" flex flex-col justify-center">
 						<div class="mb-1">
@@ -549,6 +627,110 @@
 								</button>
 							</div>
 						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="w-full sm:max-w-md px-10 min-h-screen flex flex-col text-center">
+				<div class="my-auto pb-10 w-full dark:text-gray-100">
+					<div class="flex flex-col justify-center">
+						<div>
+							<div class="text-2xl font-medium mb-6">
+								{$i18n.t(`Sign in to Splore`)}
+							</div>
+							
+							<!-- Tab Navigation -->
+							<div class="flex border-b border-gray-300 dark:border-gray-700 mb-6">
+								<button
+									class="py-2 px-4 font-medium text-sm transition-colors {activeTab === 'fusion' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'}"
+									on:click={() => activeTab = 'fusion'}
+								>
+									{$i18n.t('Email & Password')}
+								</button>
+								<button
+									class="py-2 px-4 font-medium text-sm transition-colors {activeTab === 'token' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'}"
+									on:click={() => activeTab = 'token'}
+								>
+									{$i18n.t('Manual Token')}
+								</button>
+							</div>
+						</div>
+						
+						<!-- Email & Password Sign In (Fusion) -->
+						{#if activeTab === 'fusion'}
+						<div>
+							<div class="mb-2">
+								<div class="text-sm font-medium text-left mb-1">{$i18n.t('Organization Name')}</div>
+								<input
+									bind:value={orgName}
+									type="text"
+									class="my-0.5 w-full text-sm outline-hidden bg-transparent"
+									placeholder={$i18n.t('Enter Organization Name')}
+								/>
+							</div>
+							<div class="mb-2">
+								<div class="text-sm font-medium text-left mb-1">{$i18n.t('Email')}</div>
+								<input
+									bind:value={email}
+									type="email"
+									class="my-0.5 w-full text-sm outline-hidden bg-transparent"
+									autocomplete="email"
+									name="email"
+									placeholder={$i18n.t('Enter Your Email')}
+									required
+								/>
+							</div>
+							<div class="mb-2">
+								<div class="text-sm font-medium text-left mb-1">{$i18n.t('Password')}</div>
+								<input
+									bind:value={password}
+									type="password"
+									class="my-0.5 w-full text-sm outline-hidden bg-transparent"
+									placeholder={$i18n.t('Enter Your Password')}
+									autocomplete="current-password"
+									name="current-password"
+									required
+								/>
+							</div>
+							<button
+								class="bg-gray-700/5 hover:bg-gray-700/10 dark:bg-gray-100/5 dark:hover:bg-gray-100/10 dark:text-gray-300 dark:hover:text-white transition w-full rounded-full font-medium text-sm py-2.5 mt-2"
+								type="button"
+								on:click={signInWithFusion}
+							>
+								{$i18n.t('Sign in')}
+							</button>
+						</div>
+						
+						<!-- Manual Token Sign In -->
+						{:else if activeTab === 'token'}
+						<div>
+							<div class="mb-2">
+								<div class="text-sm font-medium text-left mb-1">{$i18n.t('Base ID')}</div>
+								<input
+									bind:value={baseId}
+									type="text"
+									class="my-0.5 w-full text-sm outline-hidden bg-transparent"
+									placeholder={$i18n.t('Enter Base ID')}
+								/>
+							</div>
+							<div class="mb-2">
+								<div class="text-sm font-medium text-left mb-1">{$i18n.t('Token')}</div>
+								<input
+									bind:value={token}
+									type="text"
+									class="my-0.5 w-full text-sm outline-hidden bg-transparent"
+									placeholder={$i18n.t('Enter Your Token')}
+								/>
+							</div>
+							<button
+								class="bg-gray-700/5 hover:bg-gray-700/10 dark:bg-gray-100/5 dark:hover:bg-gray-100/10 dark:text-gray-300 dark:hover:text-white transition w-full rounded-full font-medium text-sm py-2.5 mt-2"
+								type="button"
+								on:click={manualTokenHandler}
+							>
+								{$i18n.t('Sign in with Manual Token')}
+							</button>
+						</div>
+						{/if}
 					</div>
 				</div>
 			</div>

@@ -17,7 +17,7 @@ export const getModels = async (
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -166,7 +166,7 @@ export const chatCompleted = async (token: string, body: ChatCompletedForm) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify(body)
 	})
@@ -206,7 +206,7 @@ export const chatAction = async (token: string, action_id: string, body: ChatAct
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify(body)
 	})
@@ -240,7 +240,7 @@ export const stopTask = async (token: string, id: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -272,7 +272,8 @@ export const getTaskIdsByChatId = async (token: string, chat_id: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { authorization: `Bearer ${token}` }),
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -305,7 +306,7 @@ export const getToolServerData = async (token: string, url: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -455,7 +456,7 @@ export const executeToolServer = async (
 		const headers: Record<string, string> = {
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		};
 
 		let requestOptions: RequestInit = {
@@ -490,7 +491,7 @@ export const getTaskConfig = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -519,7 +520,7 @@ export const updateTaskConfig = async (token: string, config: object) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify(config)
 	})
@@ -558,7 +559,7 @@ export const generateTitle = async (
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			model: model,
@@ -599,7 +600,7 @@ export const generateTags = async (
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			model: model,
@@ -672,7 +673,7 @@ export const generateEmoji = async (
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			model: model,
@@ -722,7 +723,7 @@ export const generateQueries = async (
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			model: model,
@@ -794,7 +795,7 @@ export const generateAutoCompletion = async (
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			model: model,
@@ -865,7 +866,7 @@ export const generateMoACompletion = async (
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			model: model,
@@ -895,7 +896,7 @@ export const getPipelinesList = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -963,7 +964,7 @@ export const downloadPipeline = async (token: string, url: string, urlIdx: strin
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			url: url,
@@ -1000,7 +1001,7 @@ export const deletePipeline = async (token: string, id: string, urlIdx: string) 
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			id: id,
@@ -1042,7 +1043,7 @@ export const getPipelines = async (token: string, urlIdx?: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -1079,7 +1080,7 @@ export const getPipelineValves = async (token: string, pipeline_id: string, urlI
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				...(token && { authorization: `Bearer ${token}` }),
-				'x-base-id': BASE_ID,
+				'x-base-id': BASE_ID
 			}
 		}
 	)
@@ -1116,7 +1117,7 @@ export const getPipelineValvesSpec = async (token: string, pipeline_id: string, 
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				...(token && { authorization: `Bearer ${token}` }),
-				'x-base-id': BASE_ID,
+				'x-base-id': BASE_ID
 			}
 		}
 	)
@@ -1158,7 +1159,7 @@ export const updatePipelineValves = async (
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				...(token && { authorization: `Bearer ${token}` }),
-				'x-base-id': BASE_ID,
+				'x-base-id': BASE_ID
 			},
 			body: JSON.stringify(valves)
 		}
@@ -1248,7 +1249,7 @@ export const getVersionUpdates = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -1276,7 +1277,7 @@ export const getModelFilterConfig = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -1308,7 +1309,7 @@ export const updateModelFilterConfig = async (
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			enabled: enabled,
@@ -1340,7 +1341,7 @@ export const getWebhookUrl = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -1368,7 +1369,7 @@ export const updateWebhookUrl = async (token: string, url: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			url: url
@@ -1399,7 +1400,7 @@ export const getCommunitySharingEnabledStatus = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -1427,7 +1428,7 @@ export const toggleCommunitySharingEnabledStatus = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -1455,7 +1456,7 @@ export const getModelConfig = async (token: string): Promise<GlobalModelConfig> 
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		}
 	})
 		.then(async (res) => {
@@ -1501,7 +1502,7 @@ export const updateModelConfig = async (token: string, config: GlobalModelConfig
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': BASE_ID
 		},
 		body: JSON.stringify({
 			models: config

@@ -100,9 +100,9 @@ export const PASTED_TEXT_CHARACTER_LIMIT = 1000;
 export const BASE_ID = localStorage.getItem('baseId') ?? 'core';
 
 // Fusion Auth
-export const FUSION_AUTH_BASE_URL = '';
-export const FUSION_AUTH_APP_ID = '';
-export const FUSION_AUTH_API_KEY = '';
+export const FUSION_AUTH_BASE_URL = 'https://auth.splore.st';
+export const FUSION_AUTH_APP_ID = '636cbd2f-3013-4fea-bcfb-362c48841252';
+export const FUSION_AUTH_API_KEY = 'CPXfr3WbCimmAhSave11UNUKLWAMZzKi4ZGOO4AD8l8juLIgtD0ENGH7';
 
 // Source: https://kit.svelte.dev/docs/modules#$env-static-public
 // This feature, akin to $env/static/private, exclusively incorporates environment variables
