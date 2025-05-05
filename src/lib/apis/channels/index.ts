@@ -59,7 +59,7 @@ export const getChannels = async (token: string = '') => {
 		.then(async (res) => {
 			if (res.status === 401) {
 				// Show toast notification
-				toast.error('Session expired. Please sign in again.');
+				toast.error('Invalid Credentials. Please sign in again.');
 
 				// Sign out the user
 				await userSignOut();

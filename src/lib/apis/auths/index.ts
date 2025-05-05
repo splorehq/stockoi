@@ -87,8 +87,7 @@ export const updateAdminConfig = async (token: string, body: object) => {
 	return res;
 };
 
-// TODO: Original getSessionUser function
-export const _getSessionUser = async (token: string) => {
+export const getSessionUser = async (token: string) => {
 	let error = null;
 
 	const res = await fetch(`${WEBUI_API_BASE_URL}/auths/`, {
@@ -102,7 +101,13 @@ export const _getSessionUser = async (token: string) => {
 	})
 		.then(async (res) => {
 			if (!res.ok) throw await res.json();
-			return res.json();
+			const result = await res.json();
+			if (!window.location.origin) {
+				result.profile_image_url = `https://app.search.splore.st/user.png`;
+			} else {
+				result.profile_image_url = `${window.location.origin}/user.png`;
+			}
+			return result;
 		})
 		.catch((err) => {
 			console.log(err);
@@ -117,7 +122,8 @@ export const _getSessionUser = async (token: string) => {
 	return res;
 };
 
-export const getSessionUser = async (token: string) => {
+// Placeholder function for getSessionUser, to be removed
+export const _getSessionUser = async (token: string) => {
 	return {
 		id: 'bb1daf12-2ee3-4ecf-9c20-e1e913d845fd',
 		email: 'vilay.k@splore.com',
