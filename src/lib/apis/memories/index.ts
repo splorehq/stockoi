@@ -1,4 +1,6 @@
-import { WEBUI_API_BASE_URL, BASE_ID } from '$lib/constants';
+import { WEBUI_API_BASE_URL } from '$lib/constants';
+import { BASE_ID } from '$lib/stores';
+import { get } from 'svelte/store';
 
 export const getMemories = async (token: string) => {
 	let error = null;
@@ -9,7 +11,7 @@ export const getMemories = async (token: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -38,7 +40,7 @@ export const addNewMemory = async (token: string, content: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			content: content
@@ -70,7 +72,7 @@ export const updateMemoryById = async (token: string, id: string, content: strin
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			content: content
@@ -102,7 +104,7 @@ export const queryMemory = async (token: string, content: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			content: content
@@ -134,7 +136,7 @@ export const deleteMemoryById = async (token: string, id: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -167,7 +169,7 @@ export const deleteMemoriesByUserId = async (token: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {

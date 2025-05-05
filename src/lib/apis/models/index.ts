@@ -1,4 +1,6 @@
-import { WEBUI_API_BASE_URL, BASE_ID } from '$lib/constants';
+import { WEBUI_API_BASE_URL } from '$lib/constants';
+import { BASE_ID } from '$lib/stores';
+import { get } from 'svelte/store';
 
 export const getModels = async (token: string = '') => {
 	let error = null;
@@ -9,7 +11,7 @@ export const getModels = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -41,7 +43,7 @@ export const getBaseModels = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -73,7 +75,7 @@ export const createNewModel = async (token: string, model: object) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify(model)
 	})
@@ -106,7 +108,7 @@ export const getModelById = async (token: string, id: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -142,7 +144,7 @@ export const toggleModelById = async (token: string, id: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -178,7 +180,7 @@ export const updateModelById = async (token: string, id: string, model: object) 
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify(model)
 	})
@@ -215,7 +217,7 @@ export const deleteModelById = async (token: string, id: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -248,7 +250,7 @@ export const deleteAllModels = async (token: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {

@@ -1,4 +1,6 @@
-import { WEBUI_API_BASE_URL, BASE_ID } from '$lib/constants';
+import { WEBUI_API_BASE_URL } from '$lib/constants';
+import { BASE_ID } from '$lib/stores';
+import { get } from 'svelte/store';
 
 export const getConfig = async (token: string = '') => {
 	let error = null;
@@ -9,7 +11,7 @@ export const getConfig = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -41,7 +43,7 @@ export const updateConfig = async (token: string, config: object) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			...config
@@ -73,7 +75,7 @@ export const getAllFeedbacks = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -105,7 +107,7 @@ export const exportAllFeedbacks = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -137,7 +139,7 @@ export const createNewFeedback = async (token: string, feedback: object) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			...feedback
@@ -169,7 +171,7 @@ export const getFeedbackById = async (token: string, feedbackId: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -201,7 +203,7 @@ export const updateFeedbackById = async (token: string, feedbackId: string, feed
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			...feedback
@@ -233,7 +235,7 @@ export const deleteFeedbackById = async (token: string, feedbackId: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {

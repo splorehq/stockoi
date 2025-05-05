@@ -1,4 +1,6 @@
-import { WEBUI_API_BASE_URL, BASE_ID } from '$lib/constants';
+import { WEBUI_API_BASE_URL } from '$lib/constants';
+import { BASE_ID } from '$lib/stores';
+import { get } from 'svelte/store';
 
 export const createMessage = async (token: string = '', message: object) => {
 	let error = null;
@@ -8,7 +10,7 @@ export const createMessage = async (token: string = '', message: object) => {
 		headers: {
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify(message)
 	})
@@ -37,7 +39,7 @@ export const getMessages = async (token: string = '') => {
 		headers: {
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -65,7 +67,7 @@ export const getMessageById = async (token: string = '', message_id: string) => 
 		headers: {
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -97,7 +99,7 @@ export const updateMessageById = async (
 		headers: {
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify(message)
 	})
@@ -126,7 +128,7 @@ export const deleteMessageById = async (token: string = '', message_id: string) 
 		headers: {
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -154,7 +156,7 @@ export const updateMessageSettings = async (token: string = '', settings: object
 		headers: {
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify(settings)
 	})
@@ -188,7 +190,7 @@ export const chatCompletion = async (
 		headers: {
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify(body)
 	}).catch((err) => {
@@ -212,7 +214,7 @@ export const generateChatCompletion = async (token: string = '', body: object) =
 		headers: {
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify(body)
 	})

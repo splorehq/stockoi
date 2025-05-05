@@ -123,7 +123,7 @@
 				return;
 			}
 
-			if(orgName !== 'cix') {
+			if(orgName !== 'cix' && orgName !== 'genzero') {
 				toast.error($i18n.t('Invalid organization name'));
 				return;
 			}
@@ -154,11 +154,20 @@
 
 			if (jsonData.token) {
 				localStorage.setItem("token", jsonData.token);
-				localStorage.setItem("refreshToken", jsonData.token);
+				localStorage.setItem("refreshToken", jsonData.refreshToken);
 				localStorage.setItem("expiry", jsonData.tokenExpirationInstant);
 
-				// TODO: temp baseId
-				localStorage.setItem("baseId", "STEN2tnQJ3EWe0G5NYdlvKU1h4xLRV2");
+				if(orgName === 'cix') {
+					localStorage.setItem("baseId", "STEN2v7FAdMAo8C46UbV5j5rjY82da1");
+				} else if(orgName === 'genzero') {
+					localStorage.setItem("baseId", "STEN2shB1a5ReQE9sebbsIAtnImFgw1");
+				} else {
+					toast.error($i18n.t('Invalid organization name'));
+					return;
+				}
+
+				// reload page
+				window.location.href = '/';
 				
 				// Get the user session with the token
 				const sessionUser = await getSessionUser(jsonData.token).catch((error) => {

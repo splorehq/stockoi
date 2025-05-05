@@ -1,4 +1,6 @@
-import { AUDIO_API_BASE_URL, BASE_ID } from '$lib/constants';
+import { AUDIO_API_BASE_URL } from '$lib/constants';
+import { BASE_ID } from '$lib/stores';
+import { get } from 'svelte/store';
 
 export const getAudioConfig = async (token: string) => {
 	let error = null;
@@ -8,7 +10,7 @@ export const getAudioConfig = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -43,7 +45,7 @@ export const updateAudioConfig = async (token: string, payload: OpenAIConfigForm
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			...payload
@@ -76,7 +78,7 @@ export const transcribeAudio = async (token: string, file: File) => {
 		headers: {
 			Accept: 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: data
 	})
@@ -110,7 +112,7 @@ export const synthesizeOpenAISpeech = async (
 		headers: {
 			Authorization: `Bearer ${token}`,
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			input: text,
@@ -148,7 +150,7 @@ export const getModels = async (token: string = ''): Promise<AvailableModelsResp
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -177,7 +179,7 @@ export const getVoices = async (token: string = '') => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {

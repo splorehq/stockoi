@@ -1,4 +1,6 @@
-import { WEBUI_API_BASE_URL, BASE_ID } from '$lib/constants';
+import { WEBUI_API_BASE_URL } from '$lib/constants';
+import { BASE_ID } from '$lib/stores';
+import { get } from 'svelte/store';
 
 export const getGravatarUrl = async (token: string, email: string) => {
 	let error = null;
@@ -8,7 +10,7 @@ export const getGravatarUrl = async (token: string, email: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -32,7 +34,7 @@ export const executeCode = async (token: string, code: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			code: code
@@ -67,7 +69,7 @@ export const formatPythonCode = async (token: string, code: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			code: code
@@ -102,7 +104,7 @@ export const downloadChatAsPDF = async (token: string, title: string, messages: 
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			title: title,
@@ -130,7 +132,7 @@ export const getHTMLFromMarkdown = async (token: string, md: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			md: md
@@ -157,7 +159,7 @@ export const downloadDatabase = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (response) => {
@@ -194,7 +196,7 @@ export const downloadLiteLLMConfig = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (response) => {

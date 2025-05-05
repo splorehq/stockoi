@@ -1,4 +1,6 @@
-import { WEBUI_API_BASE_URL, BASE_ID } from '$lib/constants';
+import { WEBUI_API_BASE_URL, FUSION_AUTH_APP_ID, FUSION_AUTH_BASE_URL } from '$lib/constants';
+import { BASE_ID } from '$lib/stores';
+import { get } from 'svelte/store';
 
 export const getAdminDetails = async (token: string) => {
 	let error = null;
@@ -8,7 +10,7 @@ export const getAdminDetails = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -36,7 +38,7 @@ export const getAdminConfig = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -64,7 +66,7 @@ export const updateAdminConfig = async (token: string, body: object) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify(body)
 	})
@@ -94,7 +96,7 @@ export const _getSessionUser = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		credentials: 'include'
 	})
@@ -164,7 +166,7 @@ export const ldapUserSignIn = async (user: string, password: string) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		credentials: 'include',
 		body: JSON.stringify({
@@ -197,7 +199,7 @@ export const getLdapConfig = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? '',
 			...(token && { authorization: `Bearer ${token}` })
 		}
 	})
@@ -225,7 +227,7 @@ export const updateLdapConfig = async (token: string = '', enable_ldap: boolean)
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? '',
 			...(token && { authorization: `Bearer ${token}` })
 		},
 		body: JSON.stringify({
@@ -256,7 +258,7 @@ export const getLdapServer = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? '',
 			...(token && { authorization: `Bearer ${token}` })
 		}
 	})
@@ -284,7 +286,7 @@ export const updateLdapServer = async (token: string = '', body: object) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? '',
 			...(token && { authorization: `Bearer ${token}` })
 		},
 		body: JSON.stringify(body)
@@ -336,7 +338,7 @@ export const userSignIn = async (email: string, password: string) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		credentials: 'include',
 		body: JSON.stringify({
@@ -374,7 +376,7 @@ export const userSignUp = async (
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		credentials: 'include',
 		body: JSON.stringify({
@@ -408,7 +410,7 @@ export const userSignOut = async () => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		credentials: 'include'
 	})
@@ -440,7 +442,7 @@ export const addUser = async (
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? '',
 			...(token && { authorization: `Bearer ${token}` })
 		},
 		body: JSON.stringify({
@@ -474,7 +476,7 @@ export const updateUserProfile = async (token: string, name: string, profileImag
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? '',
 			...(token && { authorization: `Bearer ${token}` })
 		},
 		body: JSON.stringify({
@@ -506,7 +508,7 @@ export const updateUserPassword = async (token: string, password: string, newPas
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? '',
 			...(token && { authorization: `Bearer ${token}` })
 		},
 		body: JSON.stringify({
@@ -538,7 +540,7 @@ export const getSignUpEnabledStatus = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? '',
 			Authorization: `Bearer ${token}`
 		}
 	})
@@ -566,7 +568,7 @@ export const getDefaultUserRole = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? '',
 			Authorization: `Bearer ${token}`
 		}
 	})
@@ -594,7 +596,7 @@ export const updateDefaultUserRole = async (token: string, role: string) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? '',
 			Authorization: `Bearer ${token}`
 		},
 		body: JSON.stringify({
@@ -625,7 +627,7 @@ export const toggleSignUpEnabledStatus = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? '',
 			Authorization: `Bearer ${token}`
 		}
 	})
@@ -653,7 +655,7 @@ export const getJWTExpiresDuration = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? '',
 			Authorization: `Bearer ${token}`
 		}
 	})
@@ -681,7 +683,7 @@ export const updateJWTExpiresDuration = async (token: string, duration: string) 
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? '',
 			Authorization: `Bearer ${token}`
 		},
 		body: JSON.stringify({
@@ -712,7 +714,7 @@ export const createAPIKey = async (token: string) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? '',
 			Authorization: `Bearer ${token}`
 		}
 	})
@@ -738,8 +740,8 @@ export const getAPIKey = async (token: string) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
-			Authorization: `Bearer ${token}`,
+			'x-base-id': get(BASE_ID) ?? '',
+			Authorization: `Bearer ${token}`
 		}
 	})
 		.then(async (res) => {
@@ -764,7 +766,7 @@ export const deleteAPIKey = async (token: string) => {
 		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? '',
 			Authorization: `Bearer ${token}`
 		}
 	})
@@ -780,5 +782,35 @@ export const deleteAPIKey = async (token: string) => {
 	if (error) {
 		throw error;
 	}
+	return res;
+};
+
+export const refreshAuthToken = async (token: string, refreshToken: string) => {
+	let error = null;
+
+	const res = await fetch(
+		`${FUSION_AUTH_BASE_URL}/api/jwt/issue?applicationId=${FUSION_AUTH_APP_ID}&refreshToken=${refreshToken}`,
+		{
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`
+			}
+		}
+	)
+		.then(async (res) => {
+			if (!res.ok) throw await res.json();
+			return res.json();
+		})
+		.catch((err) => {
+			console.log(err);
+			error = err.detail ?? 'Failed to refresh token';
+			return null;
+		});
+
+	if (error) {
+		throw error;
+	}
+
 	return res;
 };

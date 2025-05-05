@@ -1,4 +1,6 @@
-import { RETRIEVAL_API_BASE_URL, BASE_ID } from '$lib/constants';
+import { RETRIEVAL_API_BASE_URL } from '$lib/constants';
+import { BASE_ID } from '$lib/stores';
+import { get } from 'svelte/store';
 
 export const getRAGConfig = async (token: string) => {
 	let error = null;
@@ -8,7 +10,7 @@ export const getRAGConfig = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -68,7 +70,7 @@ export const updateRAGConfig = async (token: string, payload: RAGConfigForm) => 
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			...payload
@@ -99,7 +101,7 @@ export const getQuerySettings = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -133,7 +135,7 @@ export const updateQuerySettings = async (token: string, settings: QuerySettings
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			...settings
@@ -164,7 +166,7 @@ export const getEmbeddingConfig = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -204,7 +206,7 @@ export const updateEmbeddingConfig = async (token: string, payload: EmbeddingMod
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			...payload
@@ -235,7 +237,7 @@ export const getRerankingConfig = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -267,7 +269,7 @@ export const updateRerankingConfig = async (token: string, payload: RerankingMod
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			...payload
@@ -309,7 +311,7 @@ export const processFile = async (
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			file_id: file_id,
@@ -342,7 +344,7 @@ export const processYoutubeVideo = async (token: string, url: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			url: url
@@ -374,7 +376,7 @@ export const processWeb = async (token: string, collection_name: string, url: st
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			url: url,
@@ -410,7 +412,7 @@ export const processWebSearch = async (
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			query,
@@ -448,7 +450,7 @@ export const queryDoc = async (
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			collection_name: collection_name,
@@ -486,7 +488,7 @@ export const queryCollection = async (
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			collection_names: collection_names,
@@ -518,7 +520,7 @@ export const resetUploadDir = async (token: string) => {
 		headers: {
 			Accept: 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -545,7 +547,7 @@ export const resetVectorDB = async (token: string) => {
 		headers: {
 			Accept: 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {

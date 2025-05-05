@@ -6,7 +6,7 @@ export const WEBUI_HOSTNAME = 'core.splore.st';
 export const WEBUI_BASE_URL = `https://${WEBUI_HOSTNAME}`;
 export const WEBUI_API_BASE_URL = `${WEBUI_BASE_URL}/api/v1`;
 
-export const OLLAMA_API_BASE_URL = `${WEBUI_BASE_URL}/ollama`;
+export const OLLAMA_API_BASE_URL = `${WEBUI_BASE_URL}`; // updated /ollama to /
 export const OPENAI_API_BASE_URL = `${WEBUI_BASE_URL}/openai`;
 export const AUDIO_API_BASE_URL = `${WEBUI_BASE_URL}/api/v1/audio`;
 export const IMAGES_API_BASE_URL = `${WEBUI_BASE_URL}/api/v1/images`;
@@ -95,9 +95,6 @@ export const SUPPORTED_FILE_EXTENSIONS = [
 ];
 
 export const PASTED_TEXT_CHARACTER_LIMIT = 1000;
-
-// write function to fetch baseId from localStorage
-export const BASE_ID = localStorage.getItem('baseId') ?? 'core';
 
 // Fusion Auth
 export const FUSION_AUTH_BASE_URL = 'https://auth.splore.st';

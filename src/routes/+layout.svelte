@@ -33,7 +33,7 @@
 	import { Toaster, toast } from 'svelte-sonner';
 
 	import { executeToolServer, getBackendConfig } from '$lib/apis';
-	import { getSessionUser } from '$lib/apis/auths';
+	import { getSessionUser, refreshAuthToken } from '$lib/apis/auths';
 
 	import '../tailwind.css';
 	import '../app.css';
@@ -56,7 +56,46 @@
 
 	const BREAKPOINT = 768;
 
+	const checkAndRefreshToken = async () => {
+		try {
+			// Get expiry timestamp from localStorage
+			const token = localStorage.getItem("token");
+			const expiryTimestamp = localStorage.getItem("expiry");
+			const refreshToken = localStorage.getItem("refreshToken");
+			
+			// If we have both expiry and refreshToken
+			if (expiryTimestamp && refreshToken && token) {
+				const currentTime = Date.now();
+				
+				// Check if token is expired or about to expire (within 60 seconds)
+				if (parseInt(expiryTimestamp) - currentTime < 60000) {
+					console.log('Token expired or about to expire, refreshing...');
+					
+					// Call the refresh token API through the auth module
+					const tokenData = await refreshAuthToken(token, refreshToken);
+					
+					// Update localStorage with new token information
+					if (tokenData.token) {
+						localStorage.setItem("token", tokenData.token);
+						localStorage.setItem("refreshToken", tokenData.refreshToken);
+						const expiryTimestamp = Date.now() + 30 * 24 * 60 * 60 * 1000;
+						localStorage.setItem("expiry", expiryTimestamp.toString());
+						console.log('Token refreshed successfully');
+					}
+				}
+			}
+			
+			// Return existing token if not expired or refresh failed
+			return localStorage.getItem("token") || '';
+		} catch (error) {
+			console.error('Error refreshing token:', error);
+			return localStorage.getItem("token") || '';
+		}
+	};
+
 	const setupSocket = async (enableWebsocket) => {
+		await checkAndRefreshToken();
+
 		const _socket = io(`${WEBUI_BASE_URL}` || undefined, {
 			reconnection: true,
 			reconnectionDelay: 1000,

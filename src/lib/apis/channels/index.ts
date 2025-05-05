@@ -1,5 +1,8 @@
-import { WEBUI_API_BASE_URL, BASE_ID } from '$lib/constants';
-import { t } from 'i18next';
+import { WEBUI_API_BASE_URL } from '$lib/constants';
+import { BASE_ID } from '$lib/stores';
+import { get } from 'svelte/store';
+import { toast } from 'svelte-sonner';
+import { userSignOut } from '$lib/apis/auths';
 
 type ChannelForm = {
 	name: string;
@@ -17,7 +20,7 @@ export const createNewChannel = async (token: string = '', channel: ChannelForm)
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({ ...channel })
 	})
@@ -50,10 +53,27 @@ export const getChannels = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
+			if (res.status === 401) {
+				// Show toast notification
+				toast.error('Session expired. Please sign in again.');
+
+				// Sign out the user
+				await userSignOut();
+
+				// Clear localStorage
+				localStorage.removeItem('token');
+				localStorage.removeItem('refreshToken');
+				localStorage.removeItem('expiry');
+				localStorage.removeItem('baseId');
+
+				// Redirect to auth page
+				location.href = '/auth';
+			}
+
 			if (!res.ok) throw await res.json();
 			return res.json();
 		})
@@ -82,7 +102,7 @@ export const getChannelById = async (token: string = '', channel_id: string) => 
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -118,7 +138,7 @@ export const updateChannelById = async (
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({ ...channel })
 	})
@@ -151,7 +171,7 @@ export const deleteChannelById = async (token: string = '', channel_id: string) 
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -190,7 +210,7 @@ export const getChannelMessages = async (
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				authorization: `Bearer ${token}`,
-				'x-base-id': BASE_ID
+				'x-base-id': get(BASE_ID) ?? ''
 			}
 		}
 	)
@@ -231,7 +251,7 @@ export const getChannelThreadMessages = async (
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				authorization: `Bearer ${token}`,
-				'x-base-id': BASE_ID
+				'x-base-id': get(BASE_ID) ?? ''
 			}
 		}
 	)
@@ -271,7 +291,7 @@ export const sendMessage = async (token: string = '', channel_id: string, messag
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({ ...message })
 	})
@@ -311,7 +331,7 @@ export const updateMessage = async (
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				authorization: `Bearer ${token}`,
-				'x-base-id': BASE_ID
+				'x-base-id': get(BASE_ID) ?? ''
 			},
 			body: JSON.stringify({ ...message })
 		}
@@ -352,7 +372,7 @@ export const addReaction = async (
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				authorization: `Bearer ${token}`,
-				'x-base-id': BASE_ID
+				'x-base-id': get(BASE_ID) ?? ''
 			},
 			body: JSON.stringify({ name })
 		}
@@ -393,7 +413,7 @@ export const removeReaction = async (
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				authorization: `Bearer ${token}`,
-				'x-base-id': BASE_ID
+				'x-base-id': get(BASE_ID) ?? ''
 			},
 			body: JSON.stringify({ name })
 		}
@@ -429,7 +449,7 @@ export const deleteMessage = async (token: string = '', channel_id: string, mess
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				authorization: `Bearer ${token}`,
-				'x-base-id': BASE_ID
+				'x-base-id': get(BASE_ID) ?? ''
 			}
 		}
 	)

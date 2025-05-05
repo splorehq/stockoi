@@ -1,4 +1,6 @@
-import { IMAGES_API_BASE_URL, BASE_ID } from '$lib/constants';
+import { IMAGES_API_BASE_URL } from '$lib/constants';
+import { BASE_ID } from '$lib/stores';
+import { get } from 'svelte/store';
 
 export const getConfig = async (token: string = '') => {
 	let error = null;
@@ -9,7 +11,7 @@ export const getConfig = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -42,7 +44,7 @@ export const updateConfig = async (token: string = '', config: object) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			...config
@@ -78,7 +80,7 @@ export const verifyConfigUrl = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -111,7 +113,7 @@ export const getImageGenerationConfig = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -144,7 +146,7 @@ export const updateImageGenerationConfig = async (token: string = '', config: ob
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({ ...config })
 	})
@@ -178,7 +180,7 @@ export const getImageGenerationModels = async (token: string = '') => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -211,7 +213,7 @@ export const imageGenerations = async (token: string = '', prompt: string) => {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			...(token && { authorization: `Bearer ${token}` }),
-			'x-base-id': BASE_ID,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			prompt: prompt

@@ -1,5 +1,7 @@
-import { WEBUI_API_BASE_URL, BASE_ID } from '$lib/constants';
+import { WEBUI_API_BASE_URL } from '$lib/constants';
 import { getUserPosition } from '$lib/utils';
+import { BASE_ID } from '$lib/stores';
+import { get } from 'svelte/store';
 
 export const getUserGroups = async (token: string) => {
 	let error = null;
@@ -9,7 +11,7 @@ export const getUserGroups = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -37,7 +39,7 @@ export const getUserDefaultPermissions = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -65,7 +67,7 @@ export const updateUserDefaultPermissions = async (token: string, permissions: o
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			...permissions
@@ -96,7 +98,7 @@ export const updateUserRole = async (token: string, id: string, role: string) =>
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			id: id,
@@ -128,7 +130,7 @@ export const getUsers = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -155,7 +157,7 @@ export const getUserSettings = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -183,7 +185,7 @@ export const updateUserSettings = async (token: string, settings: object) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			...settings
@@ -214,7 +216,7 @@ export const getUserById = async (token: string, userId: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -241,7 +243,7 @@ export const getUserInfo = async (token: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -269,7 +271,7 @@ export const updateUserInfo = async (token: string, info: object) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			...info
@@ -315,7 +317,7 @@ export const deleteUserById = async (token: string, userId: string) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -350,7 +352,7 @@ export const updateUserById = async (token: string, userId: string, user: UserUp
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-			'x-base-id': BASE_ID
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			profile_image_url: user.profile_image_url,

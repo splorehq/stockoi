@@ -160,6 +160,9 @@
 					user.set(null);
 
 					localStorage.removeItem('token');
+					localStorage.removeItem('refreshToken');
+					localStorage.removeItem('expiry');
+					localStorage.removeItem('baseId');
 					location.href = '/auth';
 
 					show = false;

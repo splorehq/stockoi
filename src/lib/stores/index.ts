@@ -235,3 +235,20 @@ type SessionUser = {
 	role: string;
 	profile_image_url: string;
 };
+
+function createBaseIdStore() {
+	const initial =
+		typeof localStorage !== 'undefined' ? (localStorage.getItem('baseId') ?? null) : null;
+
+	const store = writable<string | null>(initial);
+
+	store.subscribe((val) => {
+		if (typeof localStorage !== 'undefined' && val !== null) {
+			localStorage.setItem('baseId', val);
+		}
+	});
+
+	return store;
+}
+
+export const BASE_ID = createBaseIdStore();
