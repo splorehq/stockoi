@@ -19,7 +19,8 @@
 	import { onMount, getContext } from 'svelte';
 	import { toast } from 'svelte-sonner';
 
-	const i18n = getContext('i18n');
+	// Get i18n from context with proper typing
+	const i18n: any = getContext('i18n');
 
 	export let saveHandler: Function;
 
@@ -29,7 +30,24 @@
 		latest: ''
 	};
 
-	let adminConfig = null;
+	// Define admin config interface
+	interface AdminConfig {
+		SHOW_ADMIN_DETAILS: boolean;
+		CORE_APP_URL: string;
+		ENABLE_SIGNUP: boolean;
+		ENABLE_API_KEY: boolean;
+		ENABLE_API_KEY_ENDPOINT_RESTRICTIONS: boolean;
+		API_KEY_ALLOWED_ENDPOINTS?: string;
+		ENABLE_CHANNELS: boolean;
+		DEFAULT_USER_ROLE: string;
+		JWT_EXPIRES_IN: string;
+		ENABLE_COMMUNITY_SHARING: boolean;
+		ENABLE_MESSAGE_RATING: boolean;
+		ENABLE_USER_WEBHOOKS: boolean;
+		WEBUI_URL: string;
+	}
+	
+	let adminConfig: AdminConfig | null = null;
 	let webhookUrl = '';
 
 	// LDAP
@@ -77,13 +95,24 @@
 
 	const updateHandler = async () => {
 		webhookUrl = await updateWebhookUrl(localStorage.token, webhookUrl);
-		const res = await updateAdminConfig(localStorage.token, adminConfig);
-		await updateLdapServerHandler();
+		
+		// Only proceed if adminConfig is not null
+		if (adminConfig) {
+			// Ensure API_KEY_ALLOWED_ENDPOINTS is always included in the request
+			if (adminConfig.ENABLE_API_KEY && !adminConfig.ENABLE_API_KEY_ENDPOINT_RESTRICTIONS) {
+				adminConfig.API_KEY_ALLOWED_ENDPOINTS = adminConfig.API_KEY_ALLOWED_ENDPOINTS || '';
+			}
+			
+			const res = await updateAdminConfig(localStorage.token, adminConfig);
+			await updateLdapServerHandler();
 
-		if (res) {
-			saveHandler();
+			if (res) {
+				saveHandler();
+			} else {
+				toast.error($i18n.t('Failed to update settings'));
+			}
 		} else {
-			toast.error(i18n.t('Failed to update settings'));
+			toast.error($i18n.t('Admin configuration not loaded'));
 		}
 	};
 
