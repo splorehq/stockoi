@@ -123,7 +123,7 @@
 				return;
 			}
 
-			if(orgName !== 'cix' && orgName !== 'genzero') {
+			if(orgName !== 'cix' && orgName !== 'genzero' && orgName !== 'office') {
 				toast.error($i18n.t('Invalid organization name'));
 				return;
 			}
@@ -161,6 +161,8 @@
 					localStorage.setItem("baseId", "STEN2v7FAdMAo8C46UbV5j5rjY82da1");
 				} else if(orgName === 'genzero') {
 					localStorage.setItem("baseId", "STEN2shB1a5ReQE9sebbsIAtnImFgw1");
+				} else if(orgName === 'office') {
+					localStorage.setItem("baseId", "STEN2shFM4fYRhwTEK0Dxp2N1cVkBgd");
 				} else {
 					toast.error($i18n.t('Invalid organization name'));
 					return;
