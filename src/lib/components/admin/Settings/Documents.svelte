@@ -375,6 +375,7 @@
 								>
 									<option value="">{$i18n.t('Default')} ({$i18n.t('Character')})</option>
 									<option value="token">{$i18n.t('Token')} ({$i18n.t('Tiktoken')})</option>
+									<option value="custom_hf_tokenizer">{$i18n.t('Custom Tokenizer')}</option>
 								</select>
 							</div>
 						</div>
