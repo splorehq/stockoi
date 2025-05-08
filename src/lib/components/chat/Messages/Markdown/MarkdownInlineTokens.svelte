@@ -9,6 +9,7 @@
 
 	import { WEBUI_BASE_URL } from '$lib/constants';
 	import { copyToClipboard, unescapeHtml } from '$lib/utils';
+	import { getFileContentUrlById } from '$lib/apis/files';
 
 	import Image from '$lib/components/common/Image.svelte';
 	import KatexRenderer from './KatexRenderer.svelte';
@@ -17,6 +18,21 @@
 	export let id: string;
 	export let tokens: Token[];
 	export let onSourceClick: Function = () => {};
+	// Helper function to get the iframe URL
+	async function getIframeUrl(fileId: string): Promise<string> {
+		const token = localStorage.getItem('token');
+		if (!token) {
+			toast.error('Authentication required');
+			return '';
+		}
+		
+		try {
+			return await getFileContentUrlById(token, fileId);
+		} catch (error) {
+			toast.error('Failed to load file');
+			return '';
+		}
+	}
 </script>
 
 {#each tokens as token}
@@ -66,13 +82,15 @@
 			<KatexRenderer content={token.text} displayMode={false} />
 		{/if}
 	{:else if token.type === 'iframe'}
-		<iframe
-			src="{WEBUI_BASE_URL}/api/v1/files/{token.fileId}/content"
-			title={token.fileId}
-			width="100%"
-			frameborder="0"
-			onload="this.style.height=(this.contentWindow.document.body.scrollHeight+20)+'px';"
-		></iframe>
+		{#await getIframeUrl(token.fileId) then blobUrl}
+			<iframe
+				src={blobUrl}
+				title={token.fileId}
+				width="100%"
+				frameborder="0"
+				onload="this.style.height=(this.contentWindow.document.body.scrollHeight+20)+'px';"
+			></iframe>
+		{/await}
 	{:else if token.type === 'text'}
 		{token.raw}
 	{/if}

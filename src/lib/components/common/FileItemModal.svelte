@@ -2,6 +2,7 @@
 	import { getContext, onMount } from 'svelte';
 	import { formatFileSize, getLineCount } from '$lib/utils';
 	import { WEBUI_API_BASE_URL } from '$lib/constants';
+	import { getFileContentUrlById } from '$lib/apis/files';
 
 	const i18n = getContext('i18n');
 
@@ -19,6 +20,22 @@
 	$: isPDF =
 		item?.meta?.content_type === 'application/pdf' ||
 		(item?.name && item?.name.toLowerCase().endsWith('.pdf'));
+
+	// Helper function to get the file content URL
+	async function getFileUrl(fileId: string): Promise<string> {
+		const token = localStorage.getItem('token');
+		if (!token) {
+			console.error('Authentication required');
+			return '';
+		}
+		
+		try {
+			return await getFileContentUrlById(token, fileId);
+		} catch (error) {
+			console.error('Failed to load file', error);
+			return '';
+		}
+	}
 
 	onMount(() => {
 		console.log(item);
@@ -116,11 +133,13 @@
 
 		<div class="max-h-[75vh] overflow-auto">
 			{#if isPDF}
-				<iframe
-					title={item?.name}
-					src={`${WEBUI_API_BASE_URL}/files/${item.id}/content`}
-					class="w-full h-[70vh] border-0 rounded-lg mt-4"
-				/>
+				{#await getFileUrl(item.id) then fileUrl}
+					<iframe
+						title={item?.name}
+						src={fileUrl}
+						class="w-full h-[70vh] border-0 rounded-lg mt-4"
+					/>
+				{/await}
 			{:else}
 				<div class="max-h-96 overflow-scroll scrollbar-hidden text-xs whitespace-pre-wrap">
 					{item?.file?.data?.content ?? 'No content'}

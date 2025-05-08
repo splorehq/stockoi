@@ -5,6 +5,7 @@
 	import { PaneGroup, Pane, PaneResizer } from 'paneforge';
 
 	import { onMount, getContext, onDestroy, tick } from 'svelte';
+	import { getFileContentUrlById } from '$lib/apis/files';
 	const i18n = getContext('i18n');
 
 	import { goto } from '$app/navigation';
@@ -101,6 +102,27 @@
 	let debounceTimeout = null;
 	let mediaQuery;
 	let dragged = false;
+
+	// Function to handle file content viewing in a new tab
+	async function handleFileContentView() {
+		if (!selectedFile?.id) return;
+		
+		const token = localStorage.getItem('token');
+		if (!token) {
+			toast.error($i18n.t('Authentication required'));
+			return;
+		}
+		
+		try {
+			const blobUrl = await getFileContentUrlById(token, selectedFile.id);
+			if (blobUrl) {
+				window.open(blobUrl, '_blank');
+			}
+		} catch (error) {
+			console.error('Error fetching file content:', error);
+			toast.error($i18n.t('Failed to load file'));
+		}
+	}
 
 	const createFileFromText = (name, content) => {
 		const blob = new Blob([content], { type: 'text/plain' });
@@ -703,8 +725,8 @@
 								<div class=" flex-1 text-xl font-medium">
 									<a
 										class="hover:text-gray-500 dark:hover:text-gray-100 hover:underline grow line-clamp-1"
-										href={selectedFile.id ? `/api/v1/files/${selectedFile.id}/content` : '#'}
-										target="_blank"
+										href="#"
+										on:click|preventDefault={handleFileContentView}
 									>
 										{decodeString(selectedFile?.meta?.name)}
 									</a>

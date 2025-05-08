@@ -11,6 +11,8 @@
 
 	import { WEBUI_BASE_URL } from '$lib/constants';
 
+	import { getFileContentUrlById } from '$lib/apis/files';
+
 	import CodeBlock from '$lib/components/chat/Messages/CodeBlock.svelte';
 	import MarkdownInlineTokens from '$lib/components/chat/Messages/Markdown/MarkdownInlineTokens.svelte';
 	import KatexRenderer from './KatexRenderer.svelte';
@@ -33,6 +35,22 @@
 
 	export let onTaskClick: Function = () => {};
 	export let onSourceClick: Function = () => {};
+
+	// Helper function to get the iframe URL
+	async function getIframeUrl(fileId: string): Promise<string> {
+		const token = localStorage.getItem('token');
+		if (!token) {
+			console.error('Authentication required');
+			return '';
+		}
+		
+		try {
+			return await getFileContentUrlById(token, fileId);
+		} catch (error) {
+			console.error('Failed to load file', error);
+			return '';
+		}
+	}
 
 	const headerComponent = (depth: number) => {
 		return 'h' + depth;
@@ -278,13 +296,15 @@
 			{token.text}
 		{/if}
 	{:else if token.type === 'iframe'}
-		<iframe
-			src="{WEBUI_BASE_URL}/api/v1/files/{token.fileId}/content"
-			title={token.fileId}
-			width="100%"
-			frameborder="0"
-			onload="this.style.height=(this.contentWindow.document.body.scrollHeight+20)+'px';"
-		></iframe>
+		{#await getIframeUrl(token.fileId) then blobUrl}
+			<iframe
+				src={blobUrl}
+				title={token.fileId}
+				width="100%"
+				frameborder="0"
+				onload="this.style.height=(this.contentWindow.document.body.scrollHeight+20)+'px';"
+			></iframe>
+		{/await}
 	{:else if token.type === 'paragraph'}
 		<p dir="auto">
 			<MarkdownInlineTokens
