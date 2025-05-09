@@ -103,7 +103,7 @@
 			randomizationFactor: 0.5,
 			path: '/ws/socket.io',
 			transports: enableWebsocket ? ['websocket'] : ['polling', 'websocket'],
-			auth: { token: localStorage.token }
+			auth: { token: localStorage.token, baseId: localStorage.baseId }
 		});
 
 		await socket.set(_socket);
