@@ -18,7 +18,7 @@ export const getGravatarUrl = async (token: string, email: string) => {
 			return res.json();
 		})
 		.catch((err) => {
-			console.log(err);
+			console.error(err);
 			error = err;
 			return null;
 		});
@@ -45,7 +45,7 @@ export const executeCode = async (token: string, code: string) => {
 			return res.json();
 		})
 		.catch((err) => {
-			console.log(err);
+			console.error(err);
 
 			error = err;
 			if (err.detail) {
@@ -80,7 +80,7 @@ export const formatPythonCode = async (token: string, code: string) => {
 			return res.json();
 		})
 		.catch((err) => {
-			console.log(err);
+			console.error(err);
 
 			error = err;
 			if (err.detail) {
@@ -116,7 +116,7 @@ export const downloadChatAsPDF = async (token: string, title: string, messages: 
 			return res.blob();
 		})
 		.catch((err) => {
-			console.log(err);
+			console.error(err);
 			error = err;
 			return null;
 		});
@@ -143,7 +143,7 @@ export const getHTMLFromMarkdown = async (token: string, md: string) => {
 			return res.json();
 		})
 		.catch((err) => {
-			console.log(err);
+			console.error(err);
 			error = err;
 			return null;
 		});
@@ -178,7 +178,7 @@ export const downloadDatabase = async (token: string) => {
 			window.URL.revokeObjectURL(url);
 		})
 		.catch((err) => {
-			console.log(err);
+			console.error(err);
 			error = err.detail;
 			return null;
 		});
@@ -215,7 +215,7 @@ export const downloadLiteLLMConfig = async (token: string) => {
 			window.URL.revokeObjectURL(url);
 		})
 		.catch((err) => {
-			console.log(err);
+			console.error(err);
 			error = err.detail;
 			return null;
 		});

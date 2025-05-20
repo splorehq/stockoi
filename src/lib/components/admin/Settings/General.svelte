@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DOMPurify from 'dompurify';
 
-	import { getBackendConfig, getVersionUpdates, getWebhookUrl, updateWebhookUrl } from '$lib/apis';
+	import { getVersionUpdates, getWebhookUrl, updateWebhookUrl } from '$lib/apis';
 	import {
 		getAdminConfig,
 		getLdapConfig,
@@ -18,6 +18,7 @@
 	import { compareVersion } from '$lib/utils';
 	import { onMount, getContext } from 'svelte';
 	import { toast } from 'svelte-sonner';
+	import Textarea from '$lib/components/common/Textarea.svelte';
 
 	// Get i18n from context with proper typing
 	const i18n: any = getContext('i18n');
@@ -76,10 +77,10 @@
 			};
 		});
 
-		console.log(version);
+		console.info(version);
 
 		updateAvailable = compareVersion(version.latest, version.current);
-		console.log(updateAvailable);
+		console.info(updateAvailable);
 	};
 
 	const updateLdapServerHandler = async () => {
@@ -336,6 +337,31 @@
 						<Switch bind:state={adminConfig.SHOW_ADMIN_DETAILS} />
 					</div>
 
+					<div class="mb-2.5">
+						<div class=" self-center text-xs font-medium mb-2">
+							{$i18n.t('Pending User Overlay Title')}
+						</div>
+						<Textarea
+							rows={2}
+							placeholder={$i18n.t(
+								'Enter a title for the pending user info overlay. Leave empty for default.'
+							)}
+							bind:value={adminConfig.PENDING_USER_OVERLAY_TITLE}
+						/>
+					</div>
+
+					<div class="mb-2.5">
+						<div class=" self-center text-xs font-medium mb-2">
+							{$i18n.t('Pending User Overlay Content')}
+						</div>
+						<Textarea
+							placeholder={$i18n.t(
+								'Enter content for the pending user info overlay. Leave empty for default.'
+							)}
+							bind:value={adminConfig.PENDING_USER_OVERLAY_CONTENT}
+						/>
+					</div>
+
 					<div class="mb-2.5 flex w-full justify-between pr-2">
 						<div class=" self-center text-xs font-medium">{$i18n.t('Enable API Key')}</div>
 
@@ -590,6 +616,13 @@
 													/>
 												</div>
 											</div>
+											<div class="flex justify-between items-center text-xs">
+												<div class=" font-medium">Validate certificate</div>
+
+												<div class="mt-1">
+													<Switch bind:state={LDAP_SERVER.validate_cert} />
+												</div>
+											</div>
 											<div class="flex w-full gap-2">
 												<div class="w-full">
 													<div class=" self-center text-xs font-medium min-w-fit mb-1">
@@ -634,6 +667,14 @@
 
 					<div class="mb-2.5 flex w-full items-center justify-between pr-2">
 						<div class=" self-center text-xs font-medium">
+							{$i18n.t('Notes')} ({$i18n.t('Beta')})
+						</div>
+
+						<Switch bind:state={adminConfig.ENABLE_NOTES} />
+					</div>
+
+					<div class="mb-2.5 flex w-full items-center justify-between pr-2">
+						<div class=" self-center text-xs font-medium">
 							{$i18n.t('Channels')} ({$i18n.t('Beta')})
 						</div>
 
@@ -646,6 +687,16 @@
 						</div>
 
 						<Switch bind:state={adminConfig.ENABLE_USER_WEBHOOKS} />
+					</div>
+
+					<div class="mb-2.5">
+						<div class=" self-center text-xs font-medium mb-2">
+							{$i18n.t('Response Watermark')}
+						</div>
+						<Textarea
+							placeholder={$i18n.t('Enter a watermark for the response. Leave empty for none.')}
+							bind:value={adminConfig.RESPONSE_WATERMARK}
+						/>
 					</div>
 
 					<div class="mb-2.5 w-full justify-between">

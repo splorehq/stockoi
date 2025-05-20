@@ -54,7 +54,7 @@ export const getFolders = async (token: string = '') => {
 		})
 		.catch((err) => {
 			error = err.detail;
-			console.log(err);
+			console.error(err);
 			return null;
 		});
 
@@ -86,7 +86,7 @@ export const getFolderById = async (token: string, id: string) => {
 		})
 		.catch((err) => {
 			error = err.detail;
-			console.log(err);
+			console.error(err);
 			return null;
 		});
 
@@ -121,7 +121,7 @@ export const updateFolderNameById = async (token: string, id: string, name: stri
 		})
 		.catch((err) => {
 			error = err.detail;
-			console.log(err);
+			console.error(err);
 			return null;
 		});
 
@@ -160,7 +160,7 @@ export const updateFolderIsExpandedById = async (
 		})
 		.catch((err) => {
 			error = err.detail;
-			console.log(err);
+			console.error(err);
 			return null;
 		});
 
@@ -195,7 +195,7 @@ export const updateFolderParentIdById = async (token: string, id: string, parent
 		})
 		.catch((err) => {
 			error = err.detail;
-			console.log(err);
+			console.error(err);
 			return null;
 		});
 
@@ -235,7 +235,7 @@ export const updateFolderItemsById = async (token: string, id: string, items: Fo
 		})
 		.catch((err) => {
 			error = err.detail;
-			console.log(err);
+			console.error(err);
 			return null;
 		});
 
@@ -267,7 +267,7 @@ export const deleteFolderById = async (token: string, id: string) => {
 		})
 		.catch((err) => {
 			error = err.detail;
-			console.log(err);
+			console.error(err);
 			return null;
 		});
 

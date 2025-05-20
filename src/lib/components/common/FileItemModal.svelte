@@ -17,11 +17,23 @@
 	export let edit = false;
 
 	let enableFullContent = false;
+
+	let isPdf = false;
+	let isAudio = false;
+
 	$: isPDF =
 		item?.meta?.content_type === 'application/pdf' ||
 		(item?.name && item?.name.toLowerCase().endsWith('.pdf'));
 
-	// Helper function to get the file content URL
+	$: isAudio =
+		item?.meta?.content_type.startsWith('audio/') ||
+		(item?.name && item?.name.toLowerCase().endsWith('.mp3')) ||
+		(item?.name && item?.name.toLowerCase().endsWith('.wav')) ||
+		(item?.name && item?.name.toLowerCase().endsWith('.ogg')) ||
+		(item?.name && item?.name.toLowerCase().endsWith('.m4a')) ||
+		(item?.name && item?.name.toLowerCase().endsWith('.webm'));
+
+		// Helper function to get the file content URL
 	async function getFileUrl(fileId: string): Promise<string> {
 		const token = localStorage.getItem('token');
 		if (!token) {
@@ -36,7 +48,7 @@
 			return '';
 		}
 	}
-
+	
 	onMount(() => {
 		console.log(item);
 		if (item?.context === 'full') {
@@ -141,6 +153,15 @@
 					/>
 				{/await}
 			{:else}
+				{#if isAudio}
+					<audio
+						src={`${WEBUI_API_BASE_URL}/files/${item.id}/content`}
+						class="w-full border-0 rounded-lg mb-2"
+						controls
+						playsinline
+					/>
+				{/if}
+
 				<div class="max-h-96 overflow-scroll scrollbar-hidden text-xs whitespace-pre-wrap">
 					{item?.file?.data?.content ?? 'No content'}
 				</div>

@@ -19,7 +19,7 @@ export const getOpenAIConfig = async (token: string = '') => {
 			return res.json();
 		})
 		.catch((err) => {
-			console.log(err);
+			console.error(err);
 			if ('detail' in err) {
 				error = err.detail;
 			} else {
@@ -62,7 +62,7 @@ export const updateOpenAIConfig = async (token: string = '', config: OpenAIConfi
 			return res.json();
 		})
 		.catch((err) => {
-			console.log(err);
+			console.error(err);
 			if ('detail' in err) {
 				error = err.detail;
 			} else {
@@ -95,7 +95,7 @@ export const getOpenAIUrls = async (token: string = '') => {
 			return res.json();
 		})
 		.catch((err) => {
-			console.log(err);
+			console.error(err);
 			if ('detail' in err) {
 				error = err.detail;
 			} else {
@@ -131,7 +131,7 @@ export const updateOpenAIUrls = async (token: string = '', urls: string[]) => {
 			return res.json();
 		})
 		.catch((err) => {
-			console.log(err);
+			console.error(err);
 			if ('detail' in err) {
 				error = err.detail;
 			} else {
@@ -164,7 +164,7 @@ export const getOpenAIKeys = async (token: string = '') => {
 			return res.json();
 		})
 		.catch((err) => {
-			console.log(err);
+			console.error(err);
 			if ('detail' in err) {
 				error = err.detail;
 			} else {
@@ -200,7 +200,7 @@ export const updateOpenAIKeys = async (token: string = '', keys: string[]) => {
 			return res.json();
 		})
 		.catch((err) => {
-			console.log(err);
+			console.error(err);
 			if ('detail' in err) {
 				error = err.detail;
 			} else {
@@ -277,10 +277,10 @@ export const getOpenAIModels = async (token: string, urlIdx?: number) => {
 
 export const verifyOpenAIConnection = async (
 	token: string = '',
-	url: string = 'https://api.openai.com/v1',
-	key: string = '',
+	connection: dict = {},
 	direct: boolean = false
 ) => {
+	const { url, key, config } = connection;
 	if (!url) {
 		throw 'OpenAI: URL is required';
 	}
@@ -321,7 +321,8 @@ export const verifyOpenAIConnection = async (
 			},
 			body: JSON.stringify({
 				url,
-				key
+				key,
+				config
 			})
 		})
 			.then(async (res) => {
@@ -359,7 +360,7 @@ export const chatCompletion = async (
 		},
 		body: JSON.stringify(body)
 	}).catch((err) => {
-		console.log(err);
+		console.error(err);
 		error = err;
 		return null;
 	});
@@ -424,7 +425,7 @@ export const synthesizeOpenAISpeech = async (
 			voice: speaker
 		})
 	}).catch((err) => {
-		console.log(err);
+		console.error(err);
 		error = err;
 		return null;
 	});
