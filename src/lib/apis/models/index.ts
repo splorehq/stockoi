@@ -23,7 +23,7 @@ export const getModels = async (token: string = '') => {
 		})
 		.catch((err) => {
 			error = err;
-			console.log(err);
+			console.error(err);
 			return null;
 		});
 
@@ -55,7 +55,7 @@ export const getBaseModels = async (token: string = '') => {
 		})
 		.catch((err) => {
 			error = err;
-			console.log(err);
+			console.error(err);
 			return null;
 		});
 
@@ -85,7 +85,7 @@ export const createNewModel = async (token: string, model: object) => {
 		})
 		.catch((err) => {
 			error = err.detail;
-			console.log(err);
+			console.error(err);
 			return null;
 		});
 
@@ -121,7 +121,7 @@ export const getModelById = async (token: string, id: string) => {
 		.catch((err) => {
 			error = err;
 
-			console.log(err);
+			console.error(err);
 			return null;
 		});
 
@@ -157,7 +157,7 @@ export const toggleModelById = async (token: string, id: string) => {
 		.catch((err) => {
 			error = err;
 
-			console.log(err);
+			console.error(err);
 			return null;
 		});
 
@@ -194,7 +194,7 @@ export const updateModelById = async (token: string, id: string, model: object) 
 		.catch((err) => {
 			error = err;
 
-			console.log(err);
+			console.error(err);
 			return null;
 		});
 
@@ -230,7 +230,7 @@ export const deleteModelById = async (token: string, id: string) => {
 		.catch((err) => {
 			error = err.detail;
 
-			console.log(err);
+			console.error(err);
 			return null;
 		});
 
@@ -263,7 +263,7 @@ export const deleteAllModels = async (token: string) => {
 		.catch((err) => {
 			error = err;
 
-			console.log(err);
+			console.error(err);
 			return null;
 		});
 
