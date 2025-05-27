@@ -2,7 +2,7 @@ import { WEBUI_BASE_URL } from '$lib/constants';
 import { BASE_ID } from '$lib/stores';
 import { get } from 'svelte/store';
 
-export const getHtmlContent = async (token: string, fileId: string) => {
+export const getHtmlContent = async (token: string, fileId: string): Promise<string | null> => {
     let error = null;
 
     const res = await fetch(`${WEBUI_BASE_URL}/api/v1/files/${fileId}/content/html`, {
