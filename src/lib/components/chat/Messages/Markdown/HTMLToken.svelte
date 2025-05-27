@@ -5,6 +5,7 @@
 	import { WEBUI_BASE_URL } from '$lib/constants';
 	import Source from './Source.svelte';
 	import { settings } from '$lib/stores';
+	import { getHtmlContent } from '$lib/apis/custom';
 
 	export let id: string;
 	export let token: Token;
@@ -17,6 +18,18 @@
 		html = DOMPurify.sanitize(token.text);
 	} else {
 		html = null;
+	}
+
+	async function loadHtmlContent(fileId: string): Promise<string> {
+		const authToken = localStorage.getItem('token');
+		if (!authToken) {
+			throw new Error('Authentication required');
+		}
+		const content = await getHtmlContent(authToken, fileId);
+		if (!content) {
+			throw new Error('Failed to load HTML content');
+		}
+		return content;
 	}
 </script>
 
@@ -38,7 +51,7 @@
 		{:else}
 			{token.text}
 		{/if}
-	{:else if token.text && token.text.match(/<iframe\s+[^>]*src="https:\/\/www\.youtube\.com\/embed\/([a-zA-Z0-9_-]{11})(?:\?[^"]*)?"[^>]*><\/iframe>/)}
+	{:else if token.text.match(/<iframe\s+[^>]*src="https:\/\/www\.youtube\.com\/embed\/([a-zA-Z0-9_-]{11})(?:\?[^"]*)?"[^>]*><\/iframe>/)}
 		{@const match = token.text.match(
 			/<iframe\s+[^>]*src="https:\/\/www\.youtube\.com\/embed\/([a-zA-Z0-9_-]{11})(?:\?[^"]*)?"[^>]*><\/iframe>/
 		)}
@@ -59,19 +72,29 @@
 		{@const match = token.text.match(/<file type="html" id="([^"]+)"/)}
 		{@const fileId = match && match[1]}
 		{#if fileId}
-			<iframe
-				class="w-full my-2"
-				src={`${WEBUI_BASE_URL}/api/v1/files/${fileId}/content/html`}
-				title="Content"
-				frameborder="0"
-				sandbox="allow-scripts{($settings?.iframeSandboxAllowForms ?? false)
-					? ' allow-forms'
-					: ''}{($settings?.iframeSandboxAllowSameOrigin ?? false) ? ' allow-same-origin' : ''}"
-				referrerpolicy="strict-origin-when-cross-origin"
-				allowfullscreen
-				width="100%"
-				onload="this.style.height=(this.contentWindow.document.body.scrollHeight+20)+'px';"
-			></iframe>
+			{#await loadHtmlContent(fileId)}
+				<div class="w-full my-2 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+					Loading content...
+				</div>
+			{:then content}
+				<iframe
+					class="w-full my-2"
+					srcdoc={content}
+					title="Content"
+					frameborder="0"
+					sandbox="allow-scripts{($settings?.iframeSandboxAllowForms ?? false)
+						? ' allow-forms'
+						: ''}{($settings?.iframeSandboxAllowSameOrigin ?? false) ? ' allow-same-origin' : ''}"
+					referrerpolicy="strict-origin-when-cross-origin"
+					allowfullscreen
+					width="100%"
+					onload="this.style.height=(this.contentWindow.document.body.scrollHeight+20)+'px';"
+				></iframe>
+			{:catch error}
+				<div class="w-full my-2 p-4 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded-lg">
+					Error loading content: {error.message}
+				</div>
+			{/await}
 		{/if}
 	{:else if token.text.includes(`<source_id`)}
 		<Source {id} {token} onClick={onSourceClick} />
