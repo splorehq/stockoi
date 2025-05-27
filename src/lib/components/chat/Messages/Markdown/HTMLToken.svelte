@@ -5,6 +5,7 @@
 	import { WEBUI_BASE_URL } from '$lib/constants';
 	import Source from './Source.svelte';
 	import { settings } from '$lib/stores';
+	import { getHtmlContent } from '$lib/apis/custom';
 
 	export let id: string;
 	export let token: Token;
@@ -12,11 +13,25 @@
 	export let onSourceClick: Function = () => {};
 
 	let html: string | null = null;
+	let htmlContent: string | null = null;
 
 	$: if (token.type === 'html' && token?.text) {
 		html = DOMPurify.sanitize(token.text);
 	} else {
 		html = null;
+	}
+
+	async function loadHtmlContent(fileId: string) {
+		try {
+			const authToken = localStorage.getItem('token');
+			if (!authToken) {
+				console.error('Authentication required');
+				return;
+			}
+			htmlContent = await getHtmlContent(authToken, fileId);
+		} catch (error) {
+			console.error('Error loading HTML content:', error);
+		}
 	}
 </script>
 
@@ -59,19 +74,47 @@
 		{@const match = token.text.match(/<file type="html" id="([^"]+)"/)}
 		{@const fileId = match && match[1]}
 		{#if fileId}
-			<iframe
-				class="w-full my-2"
-				src={`${WEBUI_BASE_URL}/api/v1/files/${fileId}/content/html`}
-				title="Content"
-				frameborder="0"
-				sandbox="allow-scripts{($settings?.iframeSandboxAllowForms ?? false)
-					? ' allow-forms'
-					: ''}{($settings?.iframeSandboxAllowSameOrigin ?? false) ? ' allow-same-origin' : ''}"
-				referrerpolicy="strict-origin-when-cross-origin"
-				allowfullscreen
-				width="100%"
+			{#if htmlContent}
+				<iframe
+					class="w-full my-2"
+					srcdoc={htmlContent}
+					title="Content"
+					frameborder="0"
+					sandbox="allow-scripts{($settings?.iframeSandboxAllowForms ?? false)
+						? ' allow-forms'
+						: ''}{($settings?.iframeSandboxAllowSameOrigin ?? false) ? ' allow-same-origin' : ''}"
+					referrerpolicy="strict-origin-when-cross-origin"
+					allowfullscreen
+					width="100%"
+					onload="this.style.height=(this.contentWindow.document.body.scrollHeight+20)+'px';"
+				></iframe>
+			{:else}
+				{#await loadHtmlContent(fileId)}
+					<div class="w-full my-2 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+						Loading content...
+					</div>
+				{:then}
+					{#if htmlContent}
+						<iframe
+							class="w-full my-2"
+							srcdoc={htmlContent}
+							title="Content"
+							frameborder="0"
+							sandbox="allow-scripts{($settings?.iframeSandboxAllowForms ?? false)
+								? ' allow-forms'
+								: ''}{($settings?.iframeSandboxAllowSameOrigin ?? false) ? ' allow-same-origin' : ''}"
+							referrerpolicy="strict-origin-when-cross-origin"
+							allowfullscreen
+							width="100%"
 				onload="this.style.height=(this.contentWindow.document.body.scrollHeight+20)+'px';"
-			></iframe>
+						></iframe>
+					{/if}
+				{:catch error}
+					<div class="w-full my-2 p-4 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded-lg">
+						Error loading content: {error.message}
+					</div>
+				{/await}
+			{/if}
 		{/if}
 	{:else if token.text.includes(`<source_id`)}
 		<Source {id} {token} onClick={onSourceClick} />
