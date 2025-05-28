@@ -1,8 +1,20 @@
-import { browser, dev } from '$app/environment';
+import {
+	PUBLIC_NODE_ENV,
+	PUBLIC_API_ENDPOINT_PRODUCTION,
+	PUBLIC_FUSION_AUTH_API_KEY_PRODUCTION,
+	PUBLIC_FUSION_AUTH_APP_ID_PRODUCTION,
+	PUBLIC_FUSION_AUTH_BASE_URL_PRODUCTION,
+	PUBLIC_API_ENDPOINT_STAGING,
+	PUBLIC_FUSION_AUTH_API_KEY_STAGING,
+	PUBLIC_FUSION_AUTH_APP_ID_STAGING,
+	PUBLIC_FUSION_AUTH_BASE_URL_STAGING
+} from '$env/static/public';
 
 export const APP_NAME = 'Splore';
+export const ENVIRONMENT = PUBLIC_NODE_ENV;
 
-export const WEBUI_HOSTNAME = 'core.splore.st';
+export const WEBUI_HOSTNAME =
+	PUBLIC_NODE_ENV === 'production' ? PUBLIC_API_ENDPOINT_PRODUCTION : PUBLIC_API_ENDPOINT_STAGING;
 export const WEBUI_BASE_URL = `https://${WEBUI_HOSTNAME}`;
 export const WEBUI_API_BASE_URL = `${WEBUI_BASE_URL}/api/v1`;
 
@@ -97,9 +109,18 @@ export const SUPPORTED_FILE_EXTENSIONS = [
 export const PASTED_TEXT_CHARACTER_LIMIT = 1000;
 
 // Fusion Auth
-export const FUSION_AUTH_BASE_URL = 'https://auth.splore.st';
-export const FUSION_AUTH_APP_ID = '636cbd2f-3013-4fea-bcfb-362c48841252';
-export const FUSION_AUTH_API_KEY = 'CPXfr3WbCimmAhSave11UNUKLWAMZzKi4ZGOO4AD8l8juLIgtD0ENGH7';
+export const FUSION_AUTH_BASE_URL =
+	PUBLIC_NODE_ENV === 'production'
+		? PUBLIC_FUSION_AUTH_BASE_URL_PRODUCTION
+		: PUBLIC_FUSION_AUTH_BASE_URL_STAGING;
+export const FUSION_AUTH_APP_ID =
+	PUBLIC_NODE_ENV === 'production'
+		? PUBLIC_FUSION_AUTH_APP_ID_PRODUCTION
+		: PUBLIC_FUSION_AUTH_APP_ID_STAGING;
+export const FUSION_AUTH_API_KEY =
+	PUBLIC_NODE_ENV === 'production'
+		? PUBLIC_FUSION_AUTH_API_KEY_PRODUCTION
+		: PUBLIC_FUSION_AUTH_API_KEY_STAGING;
 
 // Source: https://kit.svelte.dev/docs/modules#$env-static-public
 // This feature, akin to $env/static/private, exclusively incorporates environment variables
