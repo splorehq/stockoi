@@ -7,6 +7,7 @@
 
 	import { getBackendConfig } from '$lib/apis';
 	import { ldapUserSignIn, getSessionUser, userSignIn, userSignUp, userSignInWithToken, setTokenAndBaseId } from '$lib/apis/auths';
+	import { getBaseId } from '$lib/apis/custom';
 
 	import { WEBUI_BASE_URL, FUSION_AUTH_BASE_URL, FUSION_AUTH_APP_ID, FUSION_AUTH_API_KEY } from '$lib/constants';
 	import { WEBUI_NAME, config, user, socket } from '$lib/stores';
@@ -122,13 +123,18 @@
 				return;
 			}
 
-			if(orgName !== 'cix' && orgName !== 'genzero' && orgName !== 'office') {
-				toast.error($i18n.t('Invalid organization name'));
+			if(FUSION_AUTH_BASE_URL === undefined || FUSION_AUTH_APP_ID === undefined || FUSION_AUTH_API_KEY === undefined) {
+				toast.error($i18n.t('Auth configuration is missing'));
 				return;
 			}
 
-			if(FUSION_AUTH_BASE_URL === undefined || FUSION_AUTH_APP_ID === undefined || FUSION_AUTH_API_KEY === undefined) {
-				toast.error($i18n.t('Auth configuration is missing'));
+			const baseId = await getBaseId(orgName);
+
+			if(baseId) {
+				// remove double quotes
+				localStorage.setItem("baseId", baseId.replace(/"/g, ''));
+			} else {
+				toast.error($i18n.t('Invalid organization name'));
 				return;
 			}
 
@@ -156,17 +162,6 @@
 				localStorage.setItem("refreshToken", jsonData.refreshToken);
 				localStorage.setItem("expiry", jsonData.tokenExpirationInstant);
 
-				if(orgName === 'cix') {
-					localStorage.setItem("baseId", "STEN2v7FAdMAo8C46UbV5j5rjY82da1");
-				} else if(orgName === 'genzero') {
-					localStorage.setItem("baseId", "STEN2shB1a5ReQE9sebbsIAtnImFgw1");
-				} else if(orgName === 'office') {
-					localStorage.setItem("baseId", "STEN2shFM4fYRhwTEK0Dxp2N1cVkBgd");
-				} else {
-					toast.error($i18n.t('Invalid organization name'));
-					return;
-				}
-
 				// reload page
 				window.location.href = '/';
 				
@@ -182,6 +177,7 @@
 					window.location.href = querystringValue('redirect') || '/';
 				}
 			} else {
+				localStorage.removeItem("baseId");
 				toast.error($i18n.t('Authentication failed. Please check your credentials.'));
 			}
 		} catch (error) {
