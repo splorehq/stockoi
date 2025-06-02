@@ -87,6 +87,7 @@
 						: ''}{($settings?.iframeSandboxAllowSameOrigin ?? false) ? ' allow-same-origin' : ''}"
 					referrerpolicy="strict-origin-when-cross-origin"
 					allowfullscreen
+					height="550px"
 					width="100%"
 					onload="this.style.height=(this.contentWindow.document.body.scrollHeight+20)+'px';"
 				></iframe>
