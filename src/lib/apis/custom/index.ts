@@ -14,15 +14,15 @@ export const getHtmlContent = async (token: string, fileId: string): Promise<str
             'x-base-id': get(BASE_ID) ?? ''
         }
     })
-        .then(async (res) => {
-            if (!res.ok) throw await res.json();
-            return res.text();
-        })
-        .catch((err) => {
-            error = err.detail;
-            console.error(err);
-            return null;
-        });
+    .then(async (res) => {
+        if (!res.ok) throw await res.json();
+        return res.text();
+    })
+    .catch((err) => {
+        error = err.detail;
+        console.error(err);
+        return null;
+    });
 
     if (error) {
         throw error;
@@ -30,3 +30,30 @@ export const getHtmlContent = async (token: string, fileId: string): Promise<str
 
     return res;
 }; 
+
+export const getBaseId = async (slug: string): Promise<string | null> => {
+    let error = null;
+
+    const res = await fetch(`${WEBUI_BASE_URL}/api/v1/tenants/slug/${slug}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(async (res) => {
+        if (!res.ok) throw await res.json();
+        return res.text();
+    })
+    .catch((err) => {
+        error = err.detail;
+        console.error(err);
+        return null;
+    });
+
+    if (error) {
+        throw error;
+    }
+
+    return res;
+}
