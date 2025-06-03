@@ -1,9 +1,22 @@
-import { browser, dev } from '$app/environment';
+import {
+	PUBLIC_NODE_ENV,
+	PUBLIC_FUSION_AUTH_API_KEY_PRODUCTION,
+	PUBLIC_FUSION_AUTH_APP_ID_PRODUCTION,
+	PUBLIC_FUSION_AUTH_BASE_URL_PRODUCTION,
+	PUBLIC_FUSION_AUTH_API_KEY_STAGING,
+	PUBLIC_FUSION_AUTH_APP_ID_STAGING,
+	PUBLIC_FUSION_AUTH_BASE_URL_STAGING,
+} from '$env/static/public';
+import { get } from 'svelte/store';
+import { backendConfig } from './stores/backend-config';
 
 export const APP_NAME = 'Splore';
+export const ENVIRONMENT = PUBLIC_NODE_ENV;
 
-export const WEBUI_HOSTNAME = 'core.splore.ai';
-export const WEBUI_BASE_URL = `https://${WEBUI_HOSTNAME}`;
+export const WEBUI_BASE_URL = (() => {
+	const url = get(backendConfig).currentUrl;
+	return url.includes('localhost') ? `http://${url}` : `https://${url}`;
+})();
 export const WEBUI_API_BASE_URL = `${WEBUI_BASE_URL}/api/v1`;
 
 export const OLLAMA_API_BASE_URL = `${WEBUI_BASE_URL}/ollama`;
@@ -97,9 +110,18 @@ export const SUPPORTED_FILE_EXTENSIONS = [
 export const PASTED_TEXT_CHARACTER_LIMIT = 1000;
 
 // Fusion Auth
-export const FUSION_AUTH_BASE_URL = 'https://auth.splore.com';
-export const FUSION_AUTH_APP_ID = '9fbba990-14f7-421d-b226-ca3367ba8f70';
-export const FUSION_AUTH_API_KEY = '4xQt66PgdZgshY2kRfWUKNRRAcGHnJp_MK7eN7Xwet7TYohedSx5Dh6V';
+export const FUSION_AUTH_BASE_URL =
+	PUBLIC_NODE_ENV === 'production'
+		? PUBLIC_FUSION_AUTH_BASE_URL_PRODUCTION
+		: PUBLIC_FUSION_AUTH_BASE_URL_STAGING;
+export const FUSION_AUTH_APP_ID =
+	PUBLIC_NODE_ENV === 'production'
+		? PUBLIC_FUSION_AUTH_APP_ID_PRODUCTION
+		: PUBLIC_FUSION_AUTH_APP_ID_STAGING;
+export const FUSION_AUTH_API_KEY =
+	PUBLIC_NODE_ENV === 'production'
+		? PUBLIC_FUSION_AUTH_API_KEY_PRODUCTION
+		: PUBLIC_FUSION_AUTH_API_KEY_STAGING;
 
 // Source: https://kit.svelte.dev/docs/modules#$env-static-public
 // This feature, akin to $env/static/private, exclusively incorporates environment variables
