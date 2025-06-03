@@ -1,21 +1,22 @@
 import {
 	PUBLIC_NODE_ENV,
-	PUBLIC_API_ENDPOINT_PRODUCTION,
 	PUBLIC_FUSION_AUTH_API_KEY_PRODUCTION,
 	PUBLIC_FUSION_AUTH_APP_ID_PRODUCTION,
 	PUBLIC_FUSION_AUTH_BASE_URL_PRODUCTION,
-	PUBLIC_API_ENDPOINT_STAGING,
 	PUBLIC_FUSION_AUTH_API_KEY_STAGING,
 	PUBLIC_FUSION_AUTH_APP_ID_STAGING,
-	PUBLIC_FUSION_AUTH_BASE_URL_STAGING
+	PUBLIC_FUSION_AUTH_BASE_URL_STAGING,
 } from '$env/static/public';
+import { get } from 'svelte/store';
+import { backendConfig } from './stores/backend-config';
 
 export const APP_NAME = 'Splore';
 export const ENVIRONMENT = PUBLIC_NODE_ENV;
 
-export const WEBUI_HOSTNAME =
-	PUBLIC_NODE_ENV === 'production' ? PUBLIC_API_ENDPOINT_PRODUCTION : PUBLIC_API_ENDPOINT_STAGING;
-export const WEBUI_BASE_URL = `https://${WEBUI_HOSTNAME}`;
+export const WEBUI_BASE_URL = (() => {
+	const url = get(backendConfig).currentUrl;
+	return url.includes('localhost') ? `http://${url}` : `https://${url}`;
+})();
 export const WEBUI_API_BASE_URL = `${WEBUI_BASE_URL}/api/v1`;
 
 export const OLLAMA_API_BASE_URL = `${WEBUI_BASE_URL}/ollama`;

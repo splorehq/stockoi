@@ -41,7 +41,8 @@
 
 	import 'tippy.js/dist/tippy.css';
 
-	import { WEBUI_BASE_URL, WEBUI_HOSTNAME } from '$lib/constants';
+	import { WEBUI_BASE_URL } from '$lib/constants';
+	import { handleBackendUrlParam } from '$lib/utils/backend-url';
 	import i18n, { initI18n, getLanguages, changeLanguage } from '$lib/i18n';
 	import { bestMatchingLanguage } from '$lib/utils';
 	import { getAllTags, getChatList } from '$lib/apis/chats';
@@ -683,6 +684,9 @@
 			document.getElementById('splash-screen')?.remove();
 			loaded = true;
 		}
+
+		// Handle backend URL parameter if present
+		handleBackendUrlParam();
 
 		return () => {
 			window.removeEventListener('resize', onResize);
