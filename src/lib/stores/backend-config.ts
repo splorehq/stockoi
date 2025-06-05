@@ -1,9 +1,4 @@
 import { writable, derived, type Readable } from 'svelte/store';
-import { 
-    PUBLIC_NODE_ENV, 
-    PUBLIC_API_ENDPOINT_PRODUCTION, 
-    PUBLIC_API_ENDPOINT_STAGING 
-} from '$env/static/public';
 
 // Store for custom backend URL
 const createCustomBackendStore = () => {
@@ -32,9 +27,9 @@ export const customBackendUrl = createCustomBackendStore();
 export const backendConfig: Readable<{ currentUrl: string }> = derived(
     [customBackendUrl],
     ([$customBackendUrl]) => ({
-        currentUrl: $customBackendUrl || (PUBLIC_NODE_ENV === 'production' 
-            ? PUBLIC_API_ENDPOINT_PRODUCTION 
-            : PUBLIC_API_ENDPOINT_STAGING)
+        currentUrl: $customBackendUrl || (import.meta.env.VITE_PUBLIC_NODE_ENV === 'production' 
+            ? import.meta.env.VITE_PUBLIC_API_ENDPOINT_PRODUCTION 
+            : import.meta.env.VITE_PUBLIC_API_ENDPOINT_STAGING)
     })
 );
 
