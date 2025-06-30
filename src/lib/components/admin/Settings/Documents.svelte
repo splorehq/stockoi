@@ -131,6 +131,10 @@
 			toast.error($i18n.t('Tika Server URL required.'));
 			return;
 		}
+		if (RAGConfig.CONTENT_EXTRACTION_ENGINE === 'nlm' && RAGConfig.NLM_SERVICE_URL === '') {
+        	toast.error($i18n.t('NLM Service URL required.'));
+        	return;
+        }
 		if (RAGConfig.CONTENT_EXTRACTION_ENGINE === 'docling' && RAGConfig.DOCLING_SERVER_URL === '') {
 			toast.error($i18n.t('Docling Server URL required.'));
 			return;
@@ -268,6 +272,7 @@
 									<option value="">{$i18n.t('Default')}</option>
 									<option value="external">{$i18n.t('External')}</option>
 									<option value="tika">{$i18n.t('Tika')}</option>
+									<option value="nlm">{$i18n.t('NLM')}</option>
 									<option value="docling">{$i18n.t('Docling')}</option>
 									<option value="document_intelligence">{$i18n.t('Document Intelligence')}</option>
 									<option value="mistral_ocr">{$i18n.t('Mistral OCR')}</option>
@@ -309,6 +314,16 @@
 									/>
 								</div>
 							</div>
+						{:else if RAGConfig.CONTENT_EXTRACTION_ENGINE === 'nlm'}
+                        	<div class="flex w-full mt-1">
+                        		<div class="flex-1 mr-2">
+                        			<input
+                        				class="flex-1 w-full text-sm bg-transparent outline-hidden"
+                        			    placeholder={$i18n.t('Enter NLM Service URL')}
+                        				bind:value={RAGConfig.NLM_SERVICE_URL}
+                        			/>
+                        		</div>
+                        	</div>
 						{:else if RAGConfig.CONTENT_EXTRACTION_ENGINE === 'docling'}
 							<div class="flex w-full mt-1">
 								<input
