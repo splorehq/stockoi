@@ -1,7 +1,7 @@
 import { WEBUI_BASE_URL } from '$lib/constants';
 import { convertOpenApiToToolPayload } from '$lib/utils';
 import { getOpenAIModelsDirect } from './openai';
-import { BASE_ID } from '$lib/stores';
+import { BASE_ID, TOKEN } from '$lib/stores';
 import { get } from 'svelte/store';
 
 import { parse } from 'yaml';
@@ -1303,7 +1303,8 @@ export const getUsage = async (token: string = '') => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			...(token && { Authorization: `Bearer ${token}` })
+			...(token && { Authorization: `Bearer ${token}` }),
+			'x-base-id': get(BASE_ID) ?? ''
 		}
 	})
 		.then(async (res) => {
@@ -1331,7 +1332,8 @@ export const getBackendConfig = async () => {
 		credentials: 'include',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-base-id': get(BASE_ID) ?? ''
+			'x-base-id': get(BASE_ID) ?? '',
+			Authorization: `Bearer ${get(TOKEN)}`
 		}
 	})
 		.then(async (res) => {

@@ -376,7 +376,8 @@ export const unloadModel = async (token: string, tagName: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			name: tagName

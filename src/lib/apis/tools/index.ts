@@ -42,7 +42,8 @@ export const loadToolByUrl = async (token: string = '', url: string) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			authorization: `Bearer ${token}`
+			authorization: `Bearer ${token}`,
+			'x-base-id': get(BASE_ID) ?? ''
 		},
 		body: JSON.stringify({
 			url

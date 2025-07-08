@@ -143,10 +143,10 @@ export const getChatListByUserId = async (
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				...(token && { authorization: `Bearer ${token}` })
+				...(token && { authorization: `Bearer ${token}` }),
+				'x-base-id': get(BASE_ID) ?? ''
 			}
-		}
-	)
+		})
 		.then(async (res) => {
 			if (!res.ok) throw await res.json();
 			return res.json();
