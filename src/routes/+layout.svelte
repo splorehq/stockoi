@@ -7,7 +7,7 @@
 		stiffness: 0.05
 	});
 
-	import { onMount, tick, setContext } from 'svelte';
+	import { onMount, tick, setContext, onDestroy } from 'svelte';
 	import {
 		config,
 		user,
@@ -16,8 +16,6 @@
 		WEBUI_NAME,
 		mobile,
 		socket,
-		activeUserIds,
-		USAGE_POOL,
 		chatId,
 		chats,
 		currentChatPage,
@@ -142,16 +140,6 @@
 			if (details) {
 				console.log('Additional details:', details);
 			}
-		});
-
-		_socket.on('user-list', (data) => {
-			console.log('user-list', data);
-			activeUserIds.set(data.user_ids);
-		});
-
-		_socket.on('usage', (data) => {
-			console.log('usage', data);
-			USAGE_POOL.set(data['models']);
 		});
 	};
 
@@ -494,6 +482,7 @@
 		}
 	};
 
+	const TOKEN_EXPIRY_BUFFER = 60; // seconds
 	const checkTokenExpiry = async () => {
 		const exp = $user?.expires_at; // token expiry time in unix timestamp
 		const now = Math.floor(Date.now() / 1000); // current time in unix timestamp
@@ -503,7 +492,7 @@
 			return;
 		}
 
-		if (now >= exp) {
+		if (now >= exp - TOKEN_EXPIRY_BUFFER) {
 			const res = await userSignOut();
 			user.set(null);
 			localStorage.removeItem('token');
@@ -548,6 +537,9 @@
 			if (document.visibilityState === 'visible') {
 				isLastActiveTab.set(true); // This tab is now the active tab
 				bc.postMessage('active'); // Notify other tabs that this tab is active
+
+				// Check token expiry when the tab becomes active
+				checkTokenExpiry();
 			}
 		};
 
@@ -577,6 +569,12 @@
 
 				$socket?.on('chat-events', chatEventHandler);
 				$socket?.on('channel-events', channelEventHandler);
+
+				// Set up the token expiry check
+				if (tokenTimer) {
+					clearInterval(tokenTimer);
+				}
+				tokenTimer = setInterval(checkTokenExpiry, 15000);
 			} else {
 				$socket?.off('chat-events', chatEventHandler);
 				$socket?.off('channel-events', channelEventHandler);
@@ -629,12 +627,6 @@
 
 						await user.set(sessionUser);
 						await config.set(await getBackendConfig());
-
-						// Set up the token expiry check
-						if (tokenTimer) {
-							clearInterval(tokenTimer);
-						}
-						tokenTimer = setInterval(checkTokenExpiry, 1000);
 					} else {
 						// Redirect Invalid Session User to /auth Page
 						localStorage.removeItem('token');
