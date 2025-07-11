@@ -142,14 +142,13 @@ type Settings = {
 	audio?: AudioSettings;
 	showUsername?: boolean;
 	notificationEnabled?: boolean;
+	highContrastMode?: boolean;
 	title?: TitleSettings;
 	splitLargeDeltas?: boolean;
 	chatDirection: 'LTR' | 'RTL' | 'auto';
 	ctrlEnterToSend?: boolean;
 
 	system?: string;
-	requestFormat?: string;
-	keepAlive?: string;
 	seed?: number;
 	temperature?: string;
 	repeat_penalty?: string;
@@ -259,4 +258,20 @@ function createBaseIdStore() {
 	return store;
 }
 
+function createTokenStore() {
+	const initial =
+		typeof localStorage !== 'undefined' ? (localStorage.getItem('token') ?? null) : null;
+
+	const store = writable<string | null>(initial);
+
+	store.subscribe((val) => {
+		if (typeof localStorage !== 'undefined' && val !== null) {
+			localStorage.setItem('token', val);
+		}
+	});
+
+	return store;
+}
+
 export const BASE_ID = createBaseIdStore();
+export const TOKEN = createTokenStore();
