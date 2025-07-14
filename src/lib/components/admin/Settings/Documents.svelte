@@ -942,11 +942,15 @@
 														RAGConfig.RAG_RERANKING_MODEL = '';
 													} else if (e.target.value === '') {
 														RAGConfig.RAG_RERANKING_MODEL = 'BAAI/bge-reranker-v2-m3';
+													}else if (e.target.value === 'custom') {
+														RAGConfig.RAG_RERANKING_MODEL = '';
 													}
 												}}
 											>
 												<option value="">{$i18n.t('Default (SentenceTransformers)')}</option>
 												<option value="external">{$i18n.t('External')}</option>
+												<option value="custom">{$i18n.t('Custom Reranker')}</option>
+
 											</select>
 										</div>
 									</div>
