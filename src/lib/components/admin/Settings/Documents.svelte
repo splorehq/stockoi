@@ -955,7 +955,7 @@
 										</div>
 									</div>
 
-									{#if RAGConfig.RAG_RERANKING_ENGINE === 'external'}
+									{#if RAGConfig.RAG_RERANKING_ENGINE === 'external' || RAGConfig.RAG_RERANKING_ENGINE === 'custom'}
 										<div class="my-0.5 flex gap-2 pr-2">
 											<input
 												class="flex-1 w-full text-sm bg-transparent outline-hidden"
